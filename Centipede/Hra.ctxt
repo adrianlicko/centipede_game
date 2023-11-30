@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=Hra
+comment1.params=
+comment1.target=Hra()
+comment2.params=
+comment2.target=void\ pridajPrekazky()
+comment3.params=
+comment3.target=void\ printniHistoriuPohybu()
+comment4.params=
+comment4.target=void\ printniPozicie()
+numComments=5

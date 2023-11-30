@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=Prekazka
+comment1.params=x\ y
+comment1.target=Prekazka(int,\ int)
+comment2.params=
+comment2.target=int\ getX()
+comment3.params=
+comment3.target=int\ getY()
+comment4.params=
+comment4.target=void\ zobraz()
+comment5.params=
+comment5.target=void\ skry()
+comment6.params=cestaKObrazku
+comment6.target=void\ zmenObrazok(java.lang.String)
+numComments=7

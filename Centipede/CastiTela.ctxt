@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.target=CastiTela
+comment1.params=cestaKObrazku\ x\ y
+comment1.target=CastiTela(java.lang.String,\ int,\ int)
+comment10.params=x\ y
+comment10.target=void\ zmenPolohu(int,\ int)
+comment2.params=
+comment2.target=int\ getX()
+comment3.params=
+comment3.target=int\ getY()
+comment4.params=
+comment4.target=void\ zobraz()
+comment5.params=
+comment5.target=void\ skry()
+comment6.params=dialka
+comment6.target=void\ posunVodorovne(int)
+comment7.params=dialka
+comment7.target=void\ posunZvisle(int)
+comment8.params=uhol
+comment8.target=void\ zmenUhol(int)
+comment9.params=cestaKObrazku
+comment9.target=void\ zmenObrazok(java.lang.String)
+numComments=11

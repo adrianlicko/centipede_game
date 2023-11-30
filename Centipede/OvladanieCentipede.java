@@ -2,26 +2,37 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class OvladanieCentipede {
-    public Centipede centipede;
+    private ArrayList<Centipede> centipede;
+    private Centipede.Smery smer;
     private Random random;
     
     public OvladanieCentipede(int dlzka) {
-        this.centipede = new Centipede(dlzka);
-        this.centipede.vykresli();
+        this.centipede = new ArrayList<Centipede>();
+        this.centipede.add(new Centipede(dlzka));
+        
+        this.smer = smer.ZIADEN;
     }
     
     public void ovladanieCentipedePocitacom() {
         this.random = new Random();
         
-        this.centipede.posunDole();
+        this.centipede.get(0).posunDole();
         for (;;) {
-            int smer = random.nextInt(4); // 0-Hore, 1-Vpravo, 2-Dole, 3-Vlavo
-            switch (smer) {
-                case 0:
+            int smer = random.nextInt(4); // 0-HORE, 1-DOLE, 2-VPRAVO, 3-VLAVO, default-ZIADEN
+            System.out.println(this.centipede.get(0).historiaPohybu.size());
+            
+            switch (this.centipede.get(0).historiaPohybu.get(this.centipede.get(0).historiaPohybu.size()-1)) {
+                case HORE:
+                    break;
+                case DOLE:
                     
-                case 1:
-                case 2:
-                case 3:
+                    break;
+                case VPRAVO:
+                    break;
+                case VLAVO:
+                    break;
+                default:
+                    break;
             }
         }
     }

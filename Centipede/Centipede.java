@@ -9,6 +9,7 @@ public class Centipede {
         VPRAVO,
         VLAVO
     }
+    
     private ArrayList<CastiTela> centipede;
     public ArrayList<Smery> historiaPohybu;
     private Smery smer;

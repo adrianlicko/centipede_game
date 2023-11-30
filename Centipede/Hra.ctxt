@@ -2,4 +2,6 @@
 comment0.target=Hra
 comment1.params=
 comment1.target=Hra()
-numComments=2
+comment2.params=
+comment2.target=void\ pridajPrekazky()
+numComments=3

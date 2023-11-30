@@ -1,5 +1,7 @@
 #BlueJ class context
 comment0.target=OvladanieCentipede
-comment1.params=
-comment1.target=OvladanieCentipede()
-numComments=2
+comment1.params=dlzka
+comment1.target=OvladanieCentipede(int)
+comment2.params=
+comment2.target=void\ ovladanieCentipedePocitacom()
+numComments=3

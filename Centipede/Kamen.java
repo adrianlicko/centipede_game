@@ -1,11 +1,11 @@
 import fri.shapesge.Obrazok;
 
-public class Prekazka {
+public class Kamen {
     private Obrazok kamen;
     private int x;
     private int y;
 
-    public Prekazka(int x, int y) {
+    public Kamen(int x, int y) {
         this.x = x;
         this.y = y;
         

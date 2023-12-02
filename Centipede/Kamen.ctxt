@@ -1,7 +1,7 @@
 #BlueJ class context
-comment0.target=Prekazka
+comment0.target=Kamen
 comment1.params=x\ y
-comment1.target=Prekazka(int,\ int)
+comment1.target=Kamen(int,\ int)
 comment2.params=
 comment2.target=int\ getX()
 comment3.params=

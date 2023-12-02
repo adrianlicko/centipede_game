@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=Kolizia
+comment1.params=
+comment1.target=Kolizia()
+comment2.params=
+comment2.target=Kolizia\ getInstancia()
+comment3.params=surX1\ surY1\ surX2\ surY2
+comment3.target=boolean\ jeKolizia(int,\ int,\ int,\ int)
+numComments=4

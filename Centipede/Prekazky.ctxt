@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=Prekazky
+comment1.params=pocetPrekazok
+comment1.target=Prekazky(int)
+comment2.params=
+comment2.target=void\ pridajKamene()
+comment3.params=
+comment3.target=int[]\ getVsetkySurX()
+comment4.params=
+comment4.target=int[]\ getVsetkySurY()
+numComments=5

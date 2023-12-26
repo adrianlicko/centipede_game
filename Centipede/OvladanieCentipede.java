@@ -1,87 +1,130 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class OvladanieCentipede {
-    private ArrayList<Centipede> centipede; //Zoznam jednotlivých stonožiek, každá stonožka obsahuje zoznam tela
+    private ArrayList<Centipede> centipede;
     private Smery smer;
     private Prekazky prekazky;
-    private int[] prekazkySurX;
-    private int[] prekazkySurY;
+    private Random random;
+    private int pocitadloPosunDole;
+    private int pocitadloPosunHore;
+    private int[] moznyPocetPosunuti;
 
     public OvladanieCentipede(int dlzka, Prekazky instancia) {
+        // Zoznam jednotlivých centipede, každá centipede obsahuje zoznam tela
         this.centipede = new ArrayList<Centipede>();
         this.centipede.add(new Centipede(dlzka));
 
-        this.smer = smer.ZIADEN;
+        // Slúži na to, aby sa centipede posunula o určitý počet krát dole alebo hore a nie iba raz
+        this.pocitadloPosunDole = 0;
+        this.pocitadloPosunHore = 0;
+        // Využíva sa keď je centipede na spodku mapy. Náhodne o jedno z týchto čísel sa posunie hore.
+        this.moznyPocetPosunuti = new int[]{9, 19, 29, 39, 49};
 
-        this.prekazky = instancia; //Trieda Hra si vytvorí inštanciu na Prekážky, pošle správu na ich vygenerovanie a až potom sa vytvorí inštancia na OvladanieCentipede. Proste aby sa mysleli rovnaké prekážky
+        this.prekazky = instancia; // Trieda Hra vytvára inštanciu na prekážky
+
+        this.centipede.get(0).vykresli(); // Na začiatku hry bude vždy iba jedna centipede, rozmnoží sa až keď do nej hráč strelí 
+
+        // 2 posuny dole, pretože jej spawn je nad plátnom
+        for (int i = 0; i < 10; i++) {
+            this.centipede.get(0).posunDole();
+            this.centipede.get(0).posunDole();
+        }
+
+        this.random = new Random();
+        // Náhodný začiatočný smer
+        switch (random.nextInt(2)) {
+            case 0:
+                this.centipede.get(0).posunVpravo();
+                break;
+            case 1:
+                this.centipede.get(0).posunVlavo();
+                break;
+        }
     }
 
+    /**
+     * Metódu vyvoláva manažér, opakuje sa stále dokola po určitom tiku.
+     * Zabezpečuje správny pohyb centipede v prípade ak narazí do prekážky alebo konca mapy.
+     */
     public void ovladanieCentipedePocitacom() {
-        this.centipede.get(0).vykresli();
-        this.centipede.get(0).posunDole();
-        this.centipede.get(0).posunDole(); // 2 posuny dole, pretože jej spawn je nad plátnom
+        Smery predosliSmer = this.centipede.get(0).getHistoriaPohybu().get(this.centipede.get(0).getHistoriaPohybu().size() - 1);
+        Smery predoslaZakruta = this.centipede.get(0).getPoslednaZakruta();
 
-        for (;;) { // Nekonečný pohyb stonožky
+        int suradnicaHlavyX = this.centipede.get(0).getSurHlavyX();
+        int suradnicaHlavyY = this.centipede.get(0).getSurHlavyY();
 
-            // Dočásne riešenie rýchlosti a plynulosti pohybu stonožky
-            try {
-                Thread.sleep(200);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            Smery predosliSmer = this.centipede.get(0).historiaPohybu.get(this.centipede.get(0).historiaPohybu.size()-1);
-            Smery predPredosliSmer = Smery.ZIADEN;
-            //if (this.centipede.get(0).historiaPohybu.size() >= 2) nikdy nenastane ze by bolo mensie ako 2, lebo ho na zaciatku metody posuvam automaticky 2x dole
-            predPredosliSmer = this.centipede.get(0).historiaPohybu.get(this.centipede.get(0).historiaPohybu.size()-2);
-
-            // Následujúci pohyb stonožky na základe predošlého. Bez riešenia či stonožka narazila do prekážky alebo koncu mapy.
-            switch (predosliSmer) {
-                case HORE:
+        switch (predosliSmer) {
+            case HORE:
+                if (this.pocitadloPosunHore != 0) {
+                    this.centipede.get(0).posunHore();
+                    this.pocitadloPosunHore--;
                     break;
-                case DOLE:
-                    if (predPredosliSmer == Smery.VLAVO)
-                        this.centipede.get(0).posunVpravo();
-                    else
-                        this.centipede.get(0).posunVlavo();
-                    break;
-                case VPRAVO:
-                    this.centipede.get(0).posunVpravo();
-                    break;
-                case VLAVO:
-                    this.centipede.get(0).posunVlavo();
-                    break;
-                default:
-                    break;
-            }
-
-            this.prekazkySurX = this.prekazky.getVsetkySurX();
-            this.prekazkySurY = this.prekazky.getVsetkySurY();
-
-            // Riešenie "nárazu" hlavy (presnejšie povedané, či sa hlava nachádza v prekážke alebo mimo mapy)
-            for (int i = 0; i < this.prekazkySurX.length; i++) {
-                // Podmienka či sa hlava nachádza v prekážke alebo mimo mapy
-                if ((this.centipede.get(0).getSurHlavyX() == this.prekazkySurX[i] && this.centipede.get(0).getSurHlavyY() == this.prekazkySurY[i]) || this.centipede.get(0).getSurHlavyX() < 0 || this.centipede.get(0).getSurHlavyX() > 780) {
-                    int novaPoziciaHlavyX;
-                    int novaPoziciaHlavyY;
-                    
-                    // Ak sa hlava nachádza v prekážke alebo mimo mapy, tak sa posunie o krok späť a dole, telo neurobí nič. To spraví dojem, že stonožka do prekážky nikdy nenarazila ale hneď sa posunula dole.
-                    if (predosliSmer == Smery.VLAVO)
-                        novaPoziciaHlavyX = this.centipede.get(0).getSurHlavyX() + 20;
-                    else if (predosliSmer == Smery.VPRAVO)
-                        novaPoziciaHlavyX = this.centipede.get(0).getSurHlavyX() - 20;
-                    else
-                        novaPoziciaHlavyX = this.centipede.get(0).getSurHlavyX();
-
-                    // V Triede Prekážky je generácia prekážok spravená tak, že ak stonožka narazí do nej alebo do konca mapy, tak sa bude môcť vždy posunúť nižšie. (Prekážka sa nikdy nebude nachádzať priamo pod miestom, kde by mohla stonožka naraziť)
-                    novaPoziciaHlavyY = this.centipede.get(0).getSurHlavyY() + 20;
-
-                    this.centipede.get(0).zmenPoziciuHlavy(novaPoziciaHlavyX, novaPoziciaHlavyY);
-                    this.centipede.get(0).setHistoriaPohybu(this.centipede.get(0).historiaPohybu.size()-1, Smery.DOLE);
                 }
-
-            }
-            // TODO: Nevie sa radovo pohnúť dole!!!!!!!!!!
+                
+                if (predoslaZakruta == Smery.VPRAVO) {
+                    this.centipede.get(0).posunVlavo();
+                } else {
+                    this.centipede.get(0).posunVpravo();
+                }
+                break;
+            case DOLE:
+                if (this.pocitadloPosunDole != 0) {
+                    this.centipede.get(0).posunDole();
+                    this.pocitadloPosunDole--;
+                    break;
+                }
+                
+                if (predoslaZakruta == Smery.VPRAVO) {
+                    this.centipede.get(0).posunVlavo();
+                } else {
+                    this.centipede.get(0).posunVpravo();
+                }
+                break;
+            case VPRAVO:
+                if (jeVPrekazke(suradnicaHlavyX + 20, suradnicaHlavyY)) {
+                    if (this.centipede.get(0).getSurHlavyY() == 680) {
+                        this.centipede.get(0).posunHore();
+                        this.pocitadloPosunHore = this.moznyPocetPosunuti[this.random.nextInt(this.moznyPocetPosunuti.length - 1)];
+                    } else {
+                        this.centipede.get(0).posunDole();
+                        this.pocitadloPosunDole = 9;
+                    }
+                } else {
+                    this.centipede.get(0).posunVpravo();
+                }
+                break;
+            case VLAVO:
+                if (jeVPrekazke(suradnicaHlavyX, suradnicaHlavyY)) {
+                    if (this.centipede.get(0).getSurHlavyY() == 680) {
+                        this.centipede.get(0).posunHore();
+                        this.pocitadloPosunHore = this.moznyPocetPosunuti[this.random.nextInt(this.moznyPocetPosunuti.length - 1)];
+                    } else {
+                        this.centipede.get(0).posunDole();
+                        this.pocitadloPosunDole = 9;
+                    }
+                } else {
+                    this.centipede.get(0).posunVlavo();
+                }
+                break;
         }
+    }
+
+    /**
+     * Slúži iba pre metódu ovladanieCentipedePocitacom(), ktorá ju sama vyvoláva.
+     * Vracia návratovú hodnotu boolean na základe toho, či zadané súradnice v parametroch sú zhodné, resp. či sa nachádzajú v súradniciach prekážok alebo či sú mimo mapy.
+     */
+    private boolean jeVPrekazke(int surX, int surY) {
+        for (int i = 0; i < this.prekazky.getVsetkySurX().length; i++) {
+            boolean jeMimoMapy = surX <= 0 || surX >= 790;
+            if ( ((surX >= this.prekazky.getVsetkySurX()[i] && surX < this.prekazky.getVsetkySurX()[i] + 20) && (surY + 20 > this.prekazky.getVsetkySurY()[i] && surY - 20 < this.prekazky.getVsetkySurY()[i])) || jeMimoMapy ) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public ArrayList getVsetkyCentipede() {
+        return this.centipede;
     }
 }

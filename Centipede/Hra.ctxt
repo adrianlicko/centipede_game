@@ -2,6 +2,4 @@
 comment0.target=Hra
 comment1.params=dlzkaCentipede\ pocetPrekazok
 comment1.target=Hra(int,\ int)
-comment2.params=
-comment2.target=void\ ovladajCentipede()
-numComments=3
+numComments=2

@@ -15,19 +15,17 @@ public class Hra {
         //this.centipede.vykresli();
         
         
-        //this.manazer = new Manazer();
-        //this.manazer.spravujObjekt(this.centipede);
+        this.manazer = new Manazer();
         
         this.prekazky = new Prekazky(pocetPrekazok);
         this.prekazky.pridajKamene();
         
+        //this.ovladanieCentipede = new OvladanieCentipede(dlzkaCentipede, this.prekazky);
         this.ovladanieCentipede = new OvladanieCentipede(dlzkaCentipede, this.prekazky);
+        //this.centipede = new Centi(10);
+        //this.centipede.vykresli();
+        this.manazer.spravujObjekt(this.ovladanieCentipede);
         
-        ovladajCentipede();
     }
     
-    
-    public void ovladajCentipede() {
-        this.ovladanieCentipede.ovladanieCentipedePocitacom();
-    }
 }

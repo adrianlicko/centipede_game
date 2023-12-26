@@ -1,3 +1,7 @@
 #BlueJ class context
 comment0.target=Smery
-numComments=1
+comment1.params=vektor
+comment1.target=Smery(int)
+comment2.params=
+comment2.target=int\ getVektor()
+numComments=3

@@ -6,21 +6,37 @@ public class Centipede {
     private ArrayList<CastiTela> centipede; //Zoznam častí tela
     private ArrayList<Smery> historiaPohybu; //Zoznam všetkých doterajších posunov hlavy, telo hlavu následuje
     private Smery smer;
+    private int dlzkaTela;
     private int x;
     private int y;
 
-    public Centipede(int dlzkaTela) {
+    public Centipede(Smery smer, int dlzkaTela, int surX, int surY) {
         this.centipede = new ArrayList<CastiTela>();
         this.historiaPohybu = new ArrayList<Smery>();
+        this.smer = smer;
+        this.dlzkaTela = dlzkaTela;
         // Súradnice začiatočnej pozícií hlavy
-        this.x = 360;
-        this.y = -40;
-
+        this.x = surX; // 360
+        this.y = surY; // -40
+        
+        this.vytvorCentipede();
+    }
+    
+    public void vytvorCentipede() {
         this.centipede.add(new CastiTela("pics\\centipedeHead.png" ,this.x, this.y)); //Na prvej pozícií musí byť vždy hlava
-        for (int i = 0; i < dlzkaTela; i++) {
-            this.centipede.add(new CastiTela("pics\\centipedeBody.png", this.x+((i+1)*20), this.y));
-            for (int j = 0; j < 10; j++) {
-                this.historiaPohybu.add(Smery.VLAVO);
+        if (this.smer == Smery.VLAVO) {
+            for (int i = 1; i < this.dlzkaTela; i++) {
+                this.centipede.add(new CastiTela("pics\\centipedeBody.png", this.x+(i*20), this.y));
+                for (int j = 0; j < 10; j++) {
+                    this.historiaPohybu.add(Smery.VLAVO);
+                }
+            }
+        } else {
+            for (int i = 1; i < this.dlzkaTela; i++) {
+                this.centipede.add(new CastiTela("pics\\centipedeBody.png", this.x+(i*(-20)), this.y));
+                for (int j = 0; j < 10; j++) {
+                    this.historiaPohybu.add(Smery.VPRAVO);
+                }
             }
         }
     }
@@ -58,25 +74,29 @@ public class Centipede {
 
     public void posunHore() {
         this.centipede.get(0).posunZvisle(Smery.HORE.getVektor());
-        this.pridajPohyb(smer.HORE);
+        //this.y += Smery.HORE.getVektor();
+        this.pridajPohyb(Smery.HORE);
         this.nasledujHlavu();
     }
 
     public void posunDole() {
         this.centipede.get(0).posunZvisle(Smery.DOLE.getVektor());
-        this.pridajPohyb(smer.DOLE);
+        //this.y += Smery.DOLE.getVektor();
+        this.pridajPohyb(Smery.DOLE);
         this.nasledujHlavu();
     }
 
     public void posunVpravo() {
         this.centipede.get(0).posunVodorovne(Smery.VPRAVO.getVektor());
-        this.pridajPohyb(smer.VPRAVO);
+        //this.x += Smery.VPRAVO.getVektor();
+        this.pridajPohyb(Smery.VPRAVO);
         this.nasledujHlavu();
     }
 
     public void posunVlavo() {
         this.centipede.get(0).posunVodorovne(Smery.VLAVO.getVektor());
-        this.pridajPohyb(smer.VLAVO);
+        //this.x += Smery.VLAVO.getVektor();
+        this.pridajPohyb(Smery.VLAVO);
         this.nasledujHlavu();
     }
 
@@ -93,6 +113,10 @@ public class Centipede {
                 this.centipede.get(i).posunVodorovne(pohyb.getVektor());
             }
         }
+    }
+    
+    public ArrayList<CastiTela> getTelo() {
+        return this.centipede;
     }
 
     public void printniHistoriuPohybu() {

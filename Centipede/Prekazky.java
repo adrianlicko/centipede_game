@@ -2,13 +2,17 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Prekazky {
-    public ArrayList<Kamen> kamen;
+    public ArrayList<Kamen> kamene;
     private int pocetPrekazok;
     private Random random;
+    private ArrayList<Integer> vsetkySurX;
+    private ArrayList<Integer> vsetkySurY;
     
     public Prekazky(int pocetPrekazok) {
-        this.kamen = new ArrayList<Kamen>();
+        this.kamene = new ArrayList<Kamen>();
         this.pocetPrekazok = pocetPrekazok;
+        this.vsetkySurX = new ArrayList<Integer>();
+        this.vsetkySurY = new ArrayList<Integer>();
     }
     
     public void pridajKamene() {
@@ -37,8 +41,8 @@ public class Prekazky {
              * žiadna nová.
              */
             boolean spravneHodnoty = true;
-            for (int j = 0; j < this.kamen.size(); j++) {
-                if ( (suradnicaX + 20 == this.kamen.get(j).getX() || suradnicaX - 20 == this.kamen.get(j).getX() ) && ( suradnicaY - 20 == this.kamen.get(j).getY() || suradnicaY + 20 == this.kamen.get(j).getY()) ) {
+            for (Kamen k : this.kamene) {
+                if ( (suradnicaX + 20 == k.getX() || suradnicaX - 20 == k.getX() ) && ( suradnicaY - 20 == k.getY() || suradnicaY + 20 == k.getY()) ) {
                     spravneHodnoty = false;
                     //break;
                 }
@@ -46,24 +50,29 @@ public class Prekazky {
             
             if (spravneHodnoty == false) {
                 i--;
-            } else
-                this.kamen.add(new Kamen(suradnicaX, suradnicaY));
+            } else {
+                this.kamene.add(new Kamen(suradnicaX, suradnicaY));
+                //this.vsetkySurX.add(suradnicaX);
+                //this.vsetkySurY.add(suradnicaY);
+            }
         }
     }
     
-    public int[] getVsetkySurX() {
-        int[] vsetkySuradnice = new int[this.kamen.size()];
-        for (int i = 0; i < this.kamen.size(); i++) {
-            vsetkySuradnice[i] = this.kamen.get(i).getX();
-        }
-        return vsetkySuradnice;
+    public ArrayList getKamene() {
+        return this.kamene;
     }
     
-    public int[] getVsetkySurY() {
-        int[] vsetkySuradnice = new int[this.kamen.size()];
-        for (int i = 0; i < this.kamen.size(); i++) {
-            vsetkySuradnice[i] = this.kamen.get(i).getY();
-        }
-        return vsetkySuradnice;
+    public void setKamene(ArrayList noveKamene) {
+        this.kamene = noveKamene;
     }
+    
+    /*
+    public ArrayList getVsetkySurX() {
+        return vsetkySurX;
+    }
+    
+    public ArrayList getVsetkySurY() {
+        return vsetkySurY;
+    }
+    */
 }

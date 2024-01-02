@@ -7,25 +7,18 @@ public class Hra {
     private Centipede centipede;
     private Prekazky prekazky;
     private OvladanieCentipede ovladanieCentipede;
+    private OvladanieRaketaANaboj ovladanieRaketa;
     
     public Hra(int dlzkaCentipede, int pocetPrekazok) {
-        //this.platno = new Platno();
-        
-        //this.centipede = new Centipede(5);
-        //this.centipede.vykresli();
-        
-        
         this.manazer = new Manazer();
         
         this.prekazky = new Prekazky(pocetPrekazok);
         this.prekazky.pridajKamene();
         
-        //this.ovladanieCentipede = new OvladanieCentipede(dlzkaCentipede, this.prekazky);
         this.ovladanieCentipede = new OvladanieCentipede(dlzkaCentipede, this.prekazky);
-        //this.centipede = new Centi(10);
-        //this.centipede.vykresli();
         this.manazer.spravujObjekt(this.ovladanieCentipede);
         
+        this.ovladanieRaketa = new OvladanieRaketaANaboj(this.prekazky, this.ovladanieCentipede);
+        this.manazer.spravujObjekt(this.ovladanieRaketa);
     }
-    
 }

@@ -1,13 +1,15 @@
 #BlueJ class context
 comment0.target=OvladanieCentipede
-comment1.params=dlzka\ instancia
+comment1.params=dlzka\ p
 comment1.target=OvladanieCentipede(int,\ Prekazky)
-comment2.params=
-comment2.target=void\ ovladanieCentipedePocitacom()
-comment2.text=\r\n\ Met\u00F3du\ vyvol\u00E1va\ mana\u017E\u00E9r,\ opakuje\ sa\ st\u00E1le\ dokola\ po\ ur\u010Ditom\ tiku.\r\n\ Zabezpe\u010Duje\ spr\u00E1vny\ pohyb\ centipede\ v\ pr\u00EDpade\ ak\ naraz\u00ED\ do\ prek\u00E1\u017Eky\ alebo\ konca\ mapy.\r\n
-comment3.params=surX\ surY
-comment3.target=boolean\ jeVPrekazke(int,\ int)
-comment3.text=\r\n\ Sl\u00FA\u017Ei\ iba\ pre\ met\u00F3du\ ovladanieCentipedePocitacom(),\ ktor\u00E1\ ju\ sama\ vyvol\u00E1va.\r\n\ Vracia\ n\u00E1vratov\u00FA\ hodnotu\ boolean\ na\ z\u00E1klade\ toho,\ \u010Di\ zadan\u00E9\ s\u00FAradnice\ v\ parametroch\ s\u00FA\ zhodn\u00E9,\ resp.\ \u010Di\ sa\ nach\u00E1dzaj\u00FA\ v\ s\u00FAradniciach\ prek\u00E1\u017Eok\ alebo\ \u010Di\ s\u00FA\ mimo\ mapy.\r\n
-comment4.params=
-comment4.target=java.util.ArrayList\ getVsetkyCentipede()
-numComments=5
+comment2.params=staraCentipede\ dlzka\ surX\ surY
+comment2.target=void\ novaCentipede(Centipede,\ int,\ int,\ int)
+comment3.params=
+comment3.target=void\ ovladanieCentipedePocitacom()
+comment3.text=\r\n\ Met\u00F3du\ vyvol\u00E1va\ mana\u017E\u00E9r,\ opakuje\ sa\ st\u00E1le\ dokola\ po\ ur\u010Ditom\ tiku.\r\n\ Zabezpe\u010Duje\ spr\u00E1vny\ pohyb\ centipede\ v\ pr\u00EDpade\ ak\ naraz\u00ED\ do\ prek\u00E1\u017Eky\ alebo\ konca\ mapy.\r\n
+comment4.params=surX\ surY
+comment4.target=boolean\ jeVPrekazke(int,\ int)
+comment4.text=\r\n\ Sl\u00FA\u017Ei\ iba\ pre\ met\u00F3du\ ovladanieCentipedePocitacom(),\ ktor\u00E1\ ju\ sama\ vyvol\u00E1va.\r\n\ Vracia\ n\u00E1vratov\u00FA\ hodnotu\ boolean\ na\ z\u00E1klade\ toho,\ \u010Di\ zadan\u00E9\ s\u00FAradnice\ v\ parametroch\ s\u00FA\ zhodn\u00E9,\ resp.\ \u010Di\ sa\ nach\u00E1dzaj\u00FA\ v\ s\u00FAradniciach\ prek\u00E1\u017Eok\ alebo\ \u010Di\ s\u00FA\ mimo\ mapy.\r\n
+comment5.params=
+comment5.target=java.util.ArrayList\ getVsetkyCentipede()
+numComments=6

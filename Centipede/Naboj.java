@@ -4,13 +4,16 @@ public class Naboj {
     private Obdlznik naboj;
     private Raketa raketa;
     private int x, y;
+    private TypLode lod;
 
-    public Naboj(Raketa r) {
+    public Naboj(TypLode l, Raketa r) {
+        this.lod = l;
         this.raketa = r;
         this.x = this.raketa.getX();
         this.y = this.raketa.getY();
         
         this.naboj = new Obdlznik(this.x, this.y);
+        this.naboj.zmenFarbu(this.lod.getFarbaNaboja());
         this.naboj.zmenStrany(3, 10);
     }
     
@@ -31,8 +34,8 @@ public class Naboj {
     }
 
     public void posunHore() {
-        this.naboj.posunZvisle(-3);
-        this.y += -3;
+        this.naboj.posunZvisle(-this.lod.getRychlostNaboja());
+        this.y += -this.lod.getRychlostNaboja();
     }
     
     public void zmenPolohu(int surX, int surY) {

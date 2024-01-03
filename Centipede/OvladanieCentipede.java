@@ -6,7 +6,7 @@ public class OvladanieCentipede {
     private Smery smer;
     private Prekazky prekazky;
     private Random random;
-    private int pocitadlo;
+    //private int pocitadlo;
     private int[] moznyPocetPosunuti;
 
     public OvladanieCentipede(int dlzka, Prekazky p) {
@@ -19,7 +19,7 @@ public class OvladanieCentipede {
         this.centipede.get(0).vykresli();
 
         // Slúži na to, aby sa centipede posunula o určitý počet krát, 1 pohyb z histórie pohybu sa vykoná viac krát.
-        this.pocitadlo = 0;
+        //this.pocitadlo = 0;
         
         // Využíva sa keď je centipede na spodku mapy. Náhodne o jedno z týchto čísel sa posunie hore.
         this.moznyPocetPosunuti = new int[]{9, 19, 29, 39, 49};
@@ -46,18 +46,16 @@ public class OvladanieCentipede {
 
     public void novaCentipede(Centipede staraCentipede, int dlzka, int surX, int surY) {
         Smery poslednaZakruta = staraCentipede.getPoslednaZakruta();
-        Smery novySmer;
-        if (poslednaZakruta == Smery.VPRAVO) {
-            novySmer = Smery.VLAVO;
-        } else {
-            novySmer = Smery.VPRAVO;
-        }
         
-        this.centipede.add(new Centipede(novySmer, dlzka, surX, surY));
+        this.centipede.add(new Centipede(poslednaZakruta, dlzka, surX, surY));
         this.centipede.get(this.centipede.size() - 1).vykresli();
+        this.centipede.get(this.centipede.size() - 1).posunDole();
+        this.centipede.get(this.centipede.size() - 1).setPocitadlo(18);
+        /*
         for (int i = 0; i < 10; i++) {
             this.centipede.get(this.centipede.size() - 1).posunDole();
         }
+        */
     }
 
     /**
@@ -79,9 +77,9 @@ public class OvladanieCentipede {
 
             switch (predosliSmer) {
                 case HORE:
-                    if (this.pocitadlo != 0) {
+                    if (this.centipede.get(i).getPocitadlo() != 0) {
                         this.centipede.get(i).posunHore();
-                        this.pocitadlo--;
+                        this.centipede.get(i).odpocitajZPocitadla();
                         break;
                     }
 
@@ -92,9 +90,9 @@ public class OvladanieCentipede {
                     }
                     break;
                 case DOLE:
-                    if (this.pocitadlo != 0) {
+                    if (this.centipede.get(i).getPocitadlo() != 0) {
                         this.centipede.get(i).posunDole();
-                        this.pocitadlo--;
+                        this.centipede.get(i).odpocitajZPocitadla();
                         break;
                     }
 
@@ -108,10 +106,10 @@ public class OvladanieCentipede {
                     if (jeVPrekazke(suradnicaHlavyX + 20, suradnicaHlavyY)) {
                         if (this.centipede.get(i).getSurHlavyY() == 680) {
                             this.centipede.get(i).posunHore();
-                            this.pocitadlo = this.moznyPocetPosunuti[this.random.nextInt(this.moznyPocetPosunuti.length - 1)];
+                            this.centipede.get(i).setPocitadlo(this.moznyPocetPosunuti[this.random.nextInt(this.moznyPocetPosunuti.length - 1)]);
                         } else {
                             this.centipede.get(i).posunDole();
-                            this.pocitadlo = 9;
+                            this.centipede.get(i).setPocitadlo(9);
                         }
                     } else {
                         this.centipede.get(i).posunVpravo();
@@ -121,10 +119,10 @@ public class OvladanieCentipede {
                     if (jeVPrekazke(suradnicaHlavyX, suradnicaHlavyY)) {
                         if (this.centipede.get(i).getSurHlavyY() == 680) {
                             this.centipede.get(i).posunHore();
-                            this.pocitadlo = this.moznyPocetPosunuti[this.random.nextInt(this.moznyPocetPosunuti.length - 1)];
+                            this.centipede.get(i).setPocitadlo(this.moznyPocetPosunuti[this.random.nextInt(this.moznyPocetPosunuti.length - 1)]);
                         } else {
                             this.centipede.get(i).posunDole();
-                            this.pocitadlo = 9;
+                            this.centipede.get(i).setPocitadlo(9);
                         }
                     } else {
                         this.centipede.get(i).posunVlavo();
@@ -142,7 +140,7 @@ public class OvladanieCentipede {
         ArrayList<Kamen> kamene = this.prekazky.getKamene();
         
         for (Kamen k : kamene) {
-            boolean jeMimoMapy = surX <= 0 || surX >= 790;
+            boolean jeMimoMapy = surX <= 0 || surX >= 700;
             
             if ( ((surX >= k.getX() && surX < k.getX() + 20) && (surY + 20 > k.getY() && surY - 20 < k.getY())) || jeMimoMapy ) {
                 return true;

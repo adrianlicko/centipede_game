@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=Raketa
-comment1.params=surX\ surY
-comment1.target=Raketa(int,\ int)
+comment1.params=l\ surX\ surY
+comment1.target=Raketa(TypLode,\ int,\ int)
 comment2.params=
 comment2.target=int\ getX()
 comment3.params=

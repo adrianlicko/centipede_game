@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.target=HUD
+comment1.params=
+comment1.target=HUD()
+comment10.params=
+comment10.target=HUD\ getInstancia()
+comment2.params=
+comment2.target=int\ getSkore()
+comment3.params=hodnota
+comment3.target=void\ pridajSkore(int)
+comment4.params=hodnota
+comment4.target=void\ odoberSkore(int)
+comment5.params=
+comment5.target=void\ zobrazSkore()
+comment6.params=
+comment6.target=int\ getPocetZivotov()
+comment7.params=hodnota
+comment7.target=void\ pridajZivoty(int)
+comment8.params=
+comment8.target=void\ uberZivoty()
+comment9.params=
+comment9.target=void\ zobrazZivoty()
+numComments=11

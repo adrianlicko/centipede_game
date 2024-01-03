@@ -9,6 +9,7 @@ public class Centipede {
     private int dlzkaTela;
     private int x;
     private int y;
+    private int pocitadlo;
 
     public Centipede(Smery smer, int dlzkaTela, int surX, int surY) {
         this.centipede = new ArrayList<CastiTela>();
@@ -18,6 +19,8 @@ public class Centipede {
         // Súradnice začiatočnej pozícií hlavy
         this.x = surX; // 360
         this.y = surY; // -40
+        
+        this.pocitadlo = 0;
         
         this.vytvorCentipede();
     }
@@ -39,6 +42,18 @@ public class Centipede {
                 }
             }
         }
+    }
+    
+    public int getPocitadlo() {
+        return this.pocitadlo;
+    }
+    
+    public void odpocitajZPocitadla() {
+        this.pocitadlo -= 1;
+    }
+    
+    public void setPocitadlo(int hodnota) {
+        this.pocitadlo = hodnota;
     }
 
     public int getSurHlavyX() {

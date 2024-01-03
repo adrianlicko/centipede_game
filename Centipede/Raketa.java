@@ -4,14 +4,16 @@ public class Raketa {
     private Obrazok raketa;
     private int x, y;
     private Naboj naboj;
+    private TypLode lod;
 
-    public Raketa(int surX, int surY) {
+    public Raketa(TypLode l ,int surX, int surY) {
+        this.lod = l;
         this.x = surX;
         this.y = surY;
-        this.raketa = new Obrazok("pics\\DarkBlueSpaceShip_player.png", this.x, this.y);
+        this.raketa = new Obrazok(this.lod.getCestaKObrazku(), this.x, this.y);
         this.raketa.zobraz();
         
-        this.naboj = new Naboj(this);
+        this.naboj = new Naboj(this.lod, this);
     }
     
     public int getX() {
@@ -27,22 +29,22 @@ public class Raketa {
     }
 
     public void posunHore() {
-        this.raketa.posunZvisle(-6);
-        this.y += -6;
+        this.raketa.posunZvisle(-this.lod.getRychlostRakety());
+        this.y += -this.lod.getRychlostRakety();
     }
 
     public void posunDole() {
-        this.raketa.posunZvisle(6);
-        this.y += 6;
+        this.raketa.posunZvisle(this.lod.getRychlostRakety());
+        this.y += this.lod.getRychlostRakety();
     }
 
     public void posunVpravo() {
-        this.raketa.posunVodorovne(6);
-        this.x += 6;
+        this.raketa.posunVodorovne(this.lod.getRychlostRakety());
+        this.x += this.lod.getRychlostRakety();
     }
 
     public void posunVlavo() {
-        this.raketa.posunVodorovne(-6);
-        this.x += -6;
+        this.raketa.posunVodorovne(-this.lod.getRychlostRakety());
+        this.x += -this.lod.getRychlostRakety();
     }
 }

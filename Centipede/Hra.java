@@ -8,8 +8,9 @@ public class Hra {
     private Prekazky prekazky;
     private OvladanieCentipede ovladanieCentipede;
     private OvladaniePavuk ovladaniePavuk;
-    private OvladanieRaketaANaboj ovladanieRaketa;
+    private OvladanieRaketa ovladanieRaketa;
     private TypLode lod;
+    private TypPavuka pavuk;
     
     public Hra(int dlzkaCentipede, int pocetPrekazok) {
         this.manazer = new Manazer();
@@ -22,15 +23,20 @@ public class Hra {
         this.ovladanieCentipede = new OvladanieCentipede(dlzkaCentipede, this.prekazky);
         this.manazer.spravujObjekt(this.ovladanieCentipede);
         
-        this.ovladaniePavuk = new OvladaniePavuk(this.prekazky);
+        this.pavuk = TypPavuka.CERVENA;
+        this.ovladaniePavuk = new OvladaniePavuk(this.prekazky, this.pavuk);
         this.manazer.spravujObjekt(this.ovladaniePavuk);
         
-        this.lod = TypLode.MODRA;
+        this.lod = TypLode.CERVENA;
         HUD.getInstancia().zobrazSkore();
         HUD.getInstancia().zobrazZivoty();
         HUD.getInstancia().pridajZivoty(this.lod.getZivotyRakety());
         
-        this.ovladanieRaketa = new OvladanieRaketaANaboj(this.prekazky, this.ovladanieCentipede, this.lod, this.ovladaniePavuk);
+        this.ovladanieRaketa = new OvladanieRaketa(this.manazer, this.prekazky, this.ovladanieCentipede, this.lod, this.ovladaniePavuk);
         this.manazer.spravujObjekt(this.ovladanieRaketa);
+    }
+    
+    public void vypniHru() {
+        
     }
 }

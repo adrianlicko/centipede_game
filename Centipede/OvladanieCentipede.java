@@ -50,12 +50,7 @@ public class OvladanieCentipede {
         this.centipede.add(new Centipede(poslednaZakruta, dlzka, surX, surY));
         this.centipede.get(this.centipede.size() - 1).vykresli();
         this.centipede.get(this.centipede.size() - 1).posunDole();
-        this.centipede.get(this.centipede.size() - 1).setPocitadlo(18);
-        /*
-        for (int i = 0; i < 10; i++) {
-            this.centipede.get(this.centipede.size() - 1).posunDole();
-        }
-        */
+        this.centipede.get(this.centipede.size() - 1).setPocitadlo(8);
     }
 
     /**
@@ -149,7 +144,7 @@ public class OvladanieCentipede {
         return false;
     }
 
-    public ArrayList getVsetkyCentipede() {
+    public ArrayList<Centipede> getVsetkyCentipede() {
         return this.centipede;
     }
     

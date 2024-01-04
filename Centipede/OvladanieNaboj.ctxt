@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=OvladanieNaboj
+comment1.params=r\ p\ oc\ l\ op
+comment1.target=OvladanieNaboj(Raketa,\ Prekazky,\ OvladanieCentipede,\ TypLode,\ OvladaniePavuk)
+comment2.params=
+comment2.target=void\ strel()
+comment3.params=
+comment3.target=void\ run()
+comment4.params=
+comment4.target=void\ ovladajNaboje()
+comment5.params=n
+comment5.target=boolean\ nabojKoliziaSPrekazkami(Naboj)
+comment6.params=n
+comment6.target=boolean\ nabojKoliziaSCentipede(Naboj)
+comment7.params=n
+comment7.target=boolean\ nabojKoliziaSPavukom(Naboj)
+comment8.params=n
+comment8.target=boolean\ nabojMimoMapy(Naboj)
+numComments=9

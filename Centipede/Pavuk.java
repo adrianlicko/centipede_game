@@ -6,12 +6,14 @@ public class Pavuk {
     private ArrayList<Smery> historiaPohybu;
     private int x, y;
     private int pocitadloZvisle, pocitadloVodorovne;
+    private TypPavuka typPavuka;
     
-    public Pavuk(int x, int y) {
+    public Pavuk(TypPavuka pa, int x, int y) {
         this.historiaPohybu = new ArrayList<Smery>();
         this.x = x;
         this.y = y;
-        this.pavuk = new Obrazok("pics\\SpiderBlack_2.png", this.x, this.y);
+        this.typPavuka = pa;
+        this.pavuk = new Obrazok(this.typPavuka.getCestaKObrazku(), this.x, this.y);
         this.pocitadloZvisle = 0;
         this.pocitadloVodorovne = 0;
     }
@@ -79,27 +81,27 @@ public class Pavuk {
     }
     
     public void posunHore() {
-        this.pavuk.posunZvisle(-2);
+        this.pavuk.posunZvisle(-this.typPavuka.getRychlostPavuka());
         this.historiaPohybu.add(Smery.HORE);
-        this.y += -2;
+        this.y += -this.typPavuka.getRychlostPavuka();
     }
     
     public void posunDole() {
-        this.pavuk.posunZvisle(2);
+        this.pavuk.posunZvisle(this.typPavuka.getRychlostPavuka());
         this.historiaPohybu.add(Smery.DOLE);
-        this.y += 2;
+        this.y += this.typPavuka.getRychlostPavuka();
     }
     
     public void posunVpravo() {
-        this.pavuk.posunVodorovne(2);
+        this.pavuk.posunVodorovne(this.typPavuka.getRychlostPavuka());
         this.historiaPohybu.add(Smery.VPRAVO);
-        this.x += 2;
+        this.x += this.typPavuka.getRychlostPavuka();
     }
     
     public void posunVlavo() {
-        this.pavuk.posunVodorovne(-2);
+        this.pavuk.posunVodorovne(-this.typPavuka.getRychlostPavuka());
         this.historiaPohybu.add(Smery.VLAVO);
-        this.x += -2;
+        this.x += -this.typPavuka.getRychlostPavuka();
     }
     
     public void vykresli() {

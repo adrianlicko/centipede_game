@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=TypPavuka
+comment1.params=cestaKObrazku\ rychlostPavuka
+comment1.target=TypPavuka(java.lang.String,\ int)
+comment2.params=
+comment2.target=java.lang.String\ getCestaKObrazku()
+comment3.params=
+comment3.target=int\ getRychlostPavuka()
+numComments=4

@@ -58,7 +58,7 @@ public class Prekazky {
         }
     }
     
-    public ArrayList getKamene() {
+    public ArrayList<Kamen> getKamene() {
         return this.kamene;
     }
     

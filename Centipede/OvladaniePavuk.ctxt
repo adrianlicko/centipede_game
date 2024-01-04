@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=OvladaniePavuk
-comment1.params=p
-comment1.target=OvladaniePavuk(Prekazky)
+comment1.params=p\ pa
+comment1.target=OvladaniePavuk(Prekazky,\ TypPavuka)
 comment2.params=
 comment2.target=void\ novyPavuk()
 comment3.params=

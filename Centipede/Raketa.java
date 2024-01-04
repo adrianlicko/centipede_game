@@ -47,4 +47,10 @@ public class Raketa {
         this.raketa.posunVodorovne(-this.lod.getRychlostRakety());
         this.x += -this.lod.getRychlostRakety();
     }
+    
+    public void zmenPolohu(int x, int y) {
+        this.x = x;
+        this.y = y;
+        this.raketa.zmenPolohu(this.x, this.y);
+    }
 }

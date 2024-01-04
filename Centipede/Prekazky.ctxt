@@ -8,4 +8,6 @@ comment3.params=
 comment3.target=java.util.ArrayList\ getKamene()
 comment4.params=noveKamene
 comment4.target=void\ setKamene(java.util.ArrayList)
-numComments=5
+comment5.params=
+comment5.target=void\ skry()
+numComments=6

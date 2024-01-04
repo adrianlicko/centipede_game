@@ -112,4 +112,12 @@ public class OvladaniePavuk {
     public ArrayList<Pavuk> getVsetkyPavuci() {
         return this.pavuci;
     }
+    
+    public void skry() {
+        for (Pavuk p : this.pavuci) {
+            p.skry();
+        }
+        this.pavuci.clear();
+        this.pavuci = null;
+    }
 }

@@ -148,4 +148,11 @@ public class OvladanieCentipede {
         return this.centipede;
     }
     
+    public void skry() {
+        for (Centipede c : this.centipede) {
+            c.skry();
+        }
+        this.centipede.clear();
+        this.centipede = null;
+    }
 }

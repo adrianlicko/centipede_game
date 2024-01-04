@@ -1,7 +1,9 @@
 #BlueJ class context
 comment0.target=Hra
-comment1.params=dlzkaCentipede\ pocetPrekazok
-comment1.target=Hra(int,\ int)
-comment2.params=
-comment2.target=void\ vypniHru()
-numComments=3
+comment1.params=
+comment1.target=Hra()
+comment2.params=dlzkaCentipede\ pocetPrekazok
+comment2.target=void\ spustiHru(int,\ int)
+comment3.params=
+comment3.target=void\ vypniHru()
+numComments=4

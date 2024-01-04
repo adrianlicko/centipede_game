@@ -94,4 +94,10 @@ public class OvladanieRaketa {
         }
     }
 
+    public void skry() {
+        this.raketa.skry(); // skryje raketu
+        this.ovladanieNaboj.skry(); // skryje vsetky naboje
+        this.manazer.prestanSpravovatObjekt(this.ovladanieNaboj);
+        this.ovladanieNaboj = null;
+    }
 }

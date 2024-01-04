@@ -21,4 +21,9 @@ public class Platno {
         this.obdlznik.zmenStrany(800, 30);
         this.obdlznik.zobraz();
     }
+    
+    public void skry() {
+        //this.pozadie.skry();
+        this.obdlznik.skry();
+    }
 }

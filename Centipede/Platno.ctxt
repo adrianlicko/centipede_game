@@ -4,4 +4,6 @@ comment1.params=
 comment1.target=Platno()
 comment2.params=
 comment2.target=void\ vykresliPozadie()
-numComments=3
+comment3.params=
+comment3.target=void\ skry()
+numComments=4

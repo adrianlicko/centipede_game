@@ -66,6 +66,20 @@ public class Prekazky {
         this.kamene = noveKamene;
     }
     
+    public void skry() {
+        for (Kamen k : this.kamene) {
+            k.skry();
+        }
+        this.kamene.clear();
+        this.kamene = null;
+        
+        this.vsetkySurX.clear();
+        this.vsetkySurX = null;
+        
+        this.vsetkySurY.clear();
+        this.vsetkySurY = null;
+    }
+    
     /*
     public ArrayList getVsetkySurX() {
         return vsetkySurX;

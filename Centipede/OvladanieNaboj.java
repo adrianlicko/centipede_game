@@ -124,4 +124,12 @@ public class OvladanieNaboj {
     public boolean nabojMimoMapy(Naboj n) {
         return n.getY() <= 0;
     }
+    
+    public void skry() {
+        for (Naboj n : this.naboje) {
+            n.skry();
+        }
+        this.naboje.clear();
+        this.naboje = null;
+    }
 }

@@ -27,6 +27,10 @@ public class Raketa {
     public void vykresli() {
         this.raketa.zobraz();
     }
+    
+    public void skry() {
+        this.raketa.skry();
+    }
 
     public void posunHore() {
         this.raketa.posunZvisle(-this.lod.getRychlostRakety());

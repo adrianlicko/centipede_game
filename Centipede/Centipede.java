@@ -133,6 +133,14 @@ public class Centipede {
     public ArrayList<CastiTela> getTelo() {
         return this.centipede;
     }
+    
+    public void skry() {
+        for (CastiTela cast : this.centipede) {
+            cast.skry();
+        }
+        this.centipede.clear();
+        this.centipede = null;
+    }
 
     public void printniHistoriuPohybu() {
         for (int i = 0; i < this.historiaPohybu.size(); i++)

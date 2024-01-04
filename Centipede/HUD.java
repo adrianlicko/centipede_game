@@ -20,6 +20,11 @@ class HUD {
         zivoty = new ArrayList<Obrazok>();
     }
     
+    public void setDefaultHodnoty() {
+        skore = 0;
+        pocetZivotov = 0;
+    }
+    
     public int getSkore() {
         return skore;
     }
@@ -63,6 +68,14 @@ class HUD {
         for (int i = 0; i < pocetZivotov; i++) {
             zivoty.add(new Obrazok("pics\\heart.png", (i*30), 700));
             zivoty.get(zivoty.size() - 1).zobraz();
+        }
+    }
+    
+    public void skry() {
+        skoreText.skry();
+        
+        for (Obrazok o : zivoty) {
+            o.skry();
         }
     }
     

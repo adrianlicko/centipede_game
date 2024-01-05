@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=UdajeZoSuboru
+comment1.params=
+comment1.target=UdajeZoSuboru()
+comment2.params=
+comment2.target=int\ getSkore()
+comment3.params=menoHraca
+comment3.target=void\ setMeno(java.lang.String)
+comment4.params=
+comment4.target=java.lang.String\ getMeno()
+comment5.params=hodnota
+comment5.target=void\ zapisSkore(int)
+comment6.params=cesta
+comment6.target=java.util.Map\ citajSkoreZoSuboru(java.lang.String)
+comment7.params=cesta\ skoreMapa
+comment7.target=void\ zapisSkoreDoSuboru(java.lang.String,\ java.util.Map)
+comment8.params=
+comment8.target=UdajeZoSuboru\ getInstancia()
+numComments=9

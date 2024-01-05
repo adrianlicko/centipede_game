@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=OvladanieCentipede
-comment1.params=dlzka\ p
-comment1.target=OvladanieCentipede(int,\ Prekazky)
+comment1.params=dlzka\ p\ h
+comment1.target=OvladanieCentipede(int,\ Prekazky,\ Hra)
 comment2.params=staraCentipede\ dlzka\ surX\ surY
 comment2.target=void\ novaCentipede(Centipede,\ int,\ int,\ int)
 comment3.params=

@@ -9,8 +9,9 @@ public class OvladanieRaketa {
     private OvladaniePavuk ovladaniePavuk;
     private OvladanieNaboj ovladanieNaboj;
     private Manazer manazer;
+    private Hra hra;
 
-    public OvladanieRaketa(Manazer m, Prekazky p, OvladanieCentipede oc, TypLode l, OvladaniePavuk op) {
+    public OvladanieRaketa(Manazer m, Prekazky p, OvladanieCentipede oc, TypLode l, OvladaniePavuk op, Hra h) {
         this.lod = l;
         this.raketa = new Raketa(this.lod, 370, 670);
         this.raketa.vykresli();
@@ -20,12 +21,16 @@ public class OvladanieRaketa {
         this.ovladanieNaboj = new OvladanieNaboj(this.raketa, this.prekazky, this.ovladanieCentipede, this.lod, this.ovladaniePavuk);
         this.manazer = m;
         this.manazer.spravujObjekt(this.ovladanieNaboj);
+        this.hra = h;
     }
 
     public void kontrolujKolizieSLodou() {
         if (this.lodKoliziaSCentipede() || this.lodKoliziaSPavukom() || this.jeMimoMapy()) {
             this.raketa.zmenPolohu(370, 670);
             HUD.getInstancia().uberZivoty();
+            if (HUD.getInstancia().getPocetZivotov() == 0) {
+                this.hra.vypniHru("prehra");
+            }
         }
     }
     

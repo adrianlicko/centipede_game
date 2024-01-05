@@ -1,88 +1,92 @@
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import fri.shapesge.Obrazok;
+import fri.shapesge.Manazer;
+import javax.swing.JOptionPane;
+import fri.shapesge.BlokTextu;
+import fri.shapesge.StylFontu;
 
-/**
- * Write a description of class g here.
- *
- * @author Bro Code, Java Code Junkie
- * Odkazy na videá:
- * Bro Code:         https://www.youtube.com/watch?v=pDqjHozkMBs
- * Java Code Junkie: https://www.youtube.com/watch?v=4PfDdJ8GFHI&t
- */
 public class Menu {
-    private static Hra hra;
-    private static JFrame frame;
-    private static JLabel label;
-    private static JPanel panel;
-    private static JButton spustiHru;
-    private static JButton obchod;
-    private static Main main;
+    private Obrazok nazovHryButton;
+    private Obrazok hraButton;
+    private Obrazok obchodButton;
+    private Manazer manazer;
+    private Hra hra;
+    private String menoHraca;
+    private BlokTextu stav;
 
     public Menu() {
-        hra = new Hra();
+        this.menoHraca = JOptionPane.showInputDialog("Zadajte meno hráča. Je dôležité si ho zapamätať!");
+        while (true) {
+            // == null kvoli ak uzivatel stlaci cancel, .length() == 0 ak stlaci ok
+            if (this.menoHraca == null) {
+                this.menoHraca = JOptionPane.showInputDialog("Zadajte meno hráča. Je dôležité si ho zapamätať!");
+            } else if (this.menoHraca.length() == 0) {
+                this.menoHraca = JOptionPane.showInputDialog("Zadajte meno hráča. Je dôležité si ho zapamätať!");
+            } else {
+                UdajeZoSuboru.getInstancia().setMeno(this.menoHraca);
+                break;
+            }
+        }
         
-        frame = new JFrame("Menu");
-        frame.setSize(300, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new BorderLayout());
-
-        label = new JLabel("Centipede");
-        label.setFont(new Font("Arial", Font.BOLD, 20)); // Nastavi font a velkost
-        label.setHorizontalAlignment(JLabel.CENTER); // Zarovnaj na stred
-        frame.getContentPane().add(label, BorderLayout.NORTH);
-
-        // Vytvorte nový panel s GridBagLayout pre tlačidlá
-        JPanel buttonPanel = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
-
-        spustiHru = new JButton("Spusti Hru");
-        spustiHru.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                spustiHru();
-                frame.setVisible(false);
-            }
-        });
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        buttonPanel.add(spustiHru, gbc);
-
-        obchod = new JButton("Obchod");
-        obchod.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                obchod();
-            }
-        });
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        buttonPanel.add(obchod, gbc);
-
-        // Umiestnite panel do stredu hlavného kontajnera
-        frame.add(buttonPanel, BorderLayout.CENTER);
-        frame.setVisible(true);
+        this.nazovHryButton = new Obrazok("pics\\nazovHryButton.png", 200, 50);
+        this.hraButton = new Obrazok("pics\\hraButton.png", 275, 270);
+        this.obchodButton = new Obrazok("pics\\obchodButton.png", 275, 400);
+        this.vykresli();
     }
     
-    public static void vypniHru() {
-        frame.setVisible(true);
+    public void spustiHruCentipede() {
+        if (this.hra == null) {
+            this.skry();
+            this.hra = new Hra(this, this.menoHraca);
+            this.hra.spustiHru(10, 70);
+        }
     }
-
-    public static void spustiHru() {
-        hra.spustiHru(10, 70);
-        // Tu by ste mohli pridať ďalšie nastavenia alebo akcie po spustení hry
+    
+    public void vypniHruCentipede(String stav) {
+        this.manazer.prestanSpravovatObjekt(this);
+        this.hra = null;
+        this.vykresli();
+        
+        if (this.stav == null) {
+            this.stav = new BlokTextu(stav);
+            this.stav.zmenFont("Arial", StylFontu.BOLD, 30);
+        } else {
+            this.stav.zmenText(stav);
+        }
+        
+        if (stav.equals("vyhra")) {
+            this.stav.zmenPolohu(75, 700);
+            this.stav.zmenText("Výhra, svoje aktuálne skóre nájdeš v obchode.");
+            this.stav.zmenFarbu("green");
+        } else {
+            this.stav.zmenPolohu(120, 700);
+            this.stav.zmenText("Prehra, tvoje skóre sa ti nepripočítalo.");
+            this.stav.zmenFarbu("red");
+        }
+        this.stav.zobraz();
     }
-
-    public static void obchod() {
-        // Tu by ste mohli pridať kód pre obchod
+    
+    public void spustiObchod() {
+        
+    }
+    
+    public void vykresli() {
+        this.manazer = new Manazer();
+        this.manazer.spravujObjekt(this);
+        
+        this.nazovHryButton.zobraz();
+        this.hraButton.zobraz();
+        this.obchodButton.zobraz();
+    }
+    
+    public void skry() {
+        this.obchodButton.skry();
+        
+        this.hraButton.skry();
+        
+        this.nazovHryButton.skry();
+    }
+    
+    public void skryTL() {
+        this.obchodButton.skry();
     }
 }

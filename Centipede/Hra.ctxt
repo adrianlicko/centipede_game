@@ -1,9 +1,11 @@
 #BlueJ class context
 comment0.target=Hra
-comment1.params=
-comment1.target=Hra()
+comment1.params=m\ me
+comment1.target=Hra(Menu,\ java.lang.String)
 comment2.params=dlzkaCentipede\ pocetPrekazok
 comment2.target=void\ spustiHru(int,\ int)
 comment3.params=
-comment3.target=void\ vypniHru()
-numComments=4
+comment3.target=void\ escUkoncenie()
+comment4.params=stav
+comment4.target=void\ vypniHru(java.lang.String)
+numComments=5

@@ -12,9 +12,11 @@ public class Hra {
     private TypLode lod;
     private TypPavuka pavuk;
     private Menu menu;
+    private String menoHraca;
     
-    public Hra() {
-        
+    public Hra(Menu m, String me) {
+        this.menu = m;
+        this.menoHraca = me;
     }
     
     public void spustiHru(int dlzkaCentipede, int pocetPrekazok) {
@@ -25,7 +27,7 @@ public class Hra {
         this.prekazky = new Prekazky(pocetPrekazok);
         this.prekazky.pridajKamene();
         
-        this.ovladanieCentipede = new OvladanieCentipede(dlzkaCentipede, this.prekazky);
+        this.ovladanieCentipede = new OvladanieCentipede(dlzkaCentipede, this.prekazky, this);
         this.manazer.spravujObjekt(this.ovladanieCentipede);
         
         this.pavuk = TypPavuka.CERVENA;
@@ -37,13 +39,17 @@ public class Hra {
         HUD.getInstancia().zobrazZivoty();
         HUD.getInstancia().pridajZivoty(this.lod.getZivotyRakety());
         
-        this.ovladanieRaketa = new OvladanieRaketa(this.manazer, this.prekazky, this.ovladanieCentipede, this.lod, this.ovladaniePavuk);
+        this.ovladanieRaketa = new OvladanieRaketa(this.manazer, this.prekazky, this.ovladanieCentipede, this.lod, this.ovladaniePavuk, this);
         this.manazer.spravujObjekt(this.ovladanieRaketa);
         
         this.manazer.spravujObjekt(this);
     }
     
-    public void vypniHru() {
+    public void escUkoncenie() {
+        this.vypniHru("prehra");
+    }
+    
+    public void vypniHru(String stav) {
         this.manazer.prestanSpravovatObjekt(this);
         this.manazer.prestanSpravovatObjekt(this.ovladanieRaketa);
         this.manazer.prestanSpravovatObjekt(this.ovladaniePavuk);
@@ -53,6 +59,9 @@ public class Hra {
         this.ovladanieRaketa.skry();
         this.ovladanieRaketa = null;
         
+        if (stav.equals("vyhra")) {
+            UdajeZoSuboru.getInstancia().zapisSkore(HUD.getInstancia().getSkore());
+        }
         HUD.getInstancia().setDefaultHodnoty();
         HUD.getInstancia().skry();
         //this.lod = null;
@@ -71,8 +80,8 @@ public class Hra {
         this.platno = null;
         
         
-        
-        
-        this.menu.vypniHru();
+        this.menu.vypniHruCentipede(stav);
     }
+    
+    
 }

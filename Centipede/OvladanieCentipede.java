@@ -8,21 +8,24 @@ public class OvladanieCentipede {
     private Random random;
     //private int pocitadlo;
     private int[] moznyPocetPosunuti;
+    private Hra hra;
 
-    public OvladanieCentipede(int dlzka, Prekazky p) {
+    public OvladanieCentipede(int dlzka, Prekazky p, Hra h) {
         // Zoznam jednotlivých centipede, každá centipede obsahuje zoznam tela
         this.centipede = new ArrayList<Centipede>();
-        
+
         // Prvá centipede bude vždy na začiatku nad plátnom smerovať dolava
         this.centipede.add(new Centipede(Smery.VLAVO, dlzka, 360, -40));
-        
+
         this.centipede.get(0).vykresli();
 
         // Slúži na to, aby sa centipede posunula o určitý počet krát, 1 pohyb z histórie pohybu sa vykoná viac krát.
         //this.pocitadlo = 0;
-        
+
         // Využíva sa keď je centipede na spodku mapy. Náhodne o jedno z týchto čísel sa posunie hore.
         this.moznyPocetPosunuti = new int[]{9, 19, 29, 39, 49};
+
+        this.hra = h;
 
         this.prekazky = p; // Trieda Hra vytvára inštanciu na prekážky
 
@@ -46,7 +49,7 @@ public class OvladanieCentipede {
 
     public void novaCentipede(Centipede staraCentipede, int dlzka, int surX, int surY) {
         Smery poslednaZakruta = staraCentipede.getPoslednaZakruta();
-        
+
         this.centipede.add(new Centipede(poslednaZakruta, dlzka, surX, surY));
         this.centipede.get(this.centipede.size() - 1).vykresli();
         this.centipede.get(this.centipede.size() - 1).posunDole();
@@ -58,71 +61,77 @@ public class OvladanieCentipede {
      * Zabezpečuje správny pohyb centipede v prípade ak narazí do prekážky alebo konca mapy.
      */
     public void ovladanieCentipedePocitacom() {
-        for (int i = 0; i < this.centipede.size(); i++) {
-            if (this.centipede.get(i).getTelo().size() == 0) {
-                this.centipede.remove(i);
-                continue;
-            }
-            
-            Smery predosliSmer = this.centipede.get(i).getHistoriaPohybu().get(this.centipede.get(i).getHistoriaPohybu().size() - 1);
-            Smery predoslaZakruta = this.centipede.get(i).getPoslednaZakruta();
+        if (this.centipede.size() == 0) {
+            this.hra.vypniHru("vyhra");
+        }
 
-            int suradnicaHlavyX = this.centipede.get(i).getSurHlavyX();
-            int suradnicaHlavyY = this.centipede.get(i).getSurHlavyY();
+        if (this.centipede != null) {
+            for (int i = 0; i < this.centipede.size(); i++) {
+                if (this.centipede.get(i).getTelo().size() == 0) {
+                    this.centipede.remove(i);
+                    continue;
+                }
 
-            switch (predosliSmer) {
-                case HORE:
-                    if (this.centipede.get(i).getPocitadlo() != 0) {
-                        this.centipede.get(i).posunHore();
-                        this.centipede.get(i).odpocitajZPocitadla();
-                        break;
-                    }
+                Smery predosliSmer = this.centipede.get(i).getHistoriaPohybu().get(this.centipede.get(i).getHistoriaPohybu().size() - 1);
+                Smery predoslaZakruta = this.centipede.get(i).getPoslednaZakruta();
 
-                    if (predoslaZakruta == Smery.VPRAVO) {
-                        this.centipede.get(i).posunVlavo();
-                    } else {
-                        this.centipede.get(i).posunVpravo();
-                    }
-                    break;
-                case DOLE:
-                    if (this.centipede.get(i).getPocitadlo() != 0) {
-                        this.centipede.get(i).posunDole();
-                        this.centipede.get(i).odpocitajZPocitadla();
-                        break;
-                    }
+                int suradnicaHlavyX = this.centipede.get(i).getSurHlavyX();
+                int suradnicaHlavyY = this.centipede.get(i).getSurHlavyY();
 
-                    if (predoslaZakruta == Smery.VPRAVO) {
-                        this.centipede.get(i).posunVlavo();
-                    } else {
-                        this.centipede.get(i).posunVpravo();
-                    }
-                    break;
-                case VPRAVO:
-                    if (jeVPrekazke(suradnicaHlavyX + 20, suradnicaHlavyY)) {
-                        if (this.centipede.get(i).getSurHlavyY() == 680) {
+                switch (predosliSmer) {
+                    case HORE:
+                        if (this.centipede.get(i).getPocitadlo() != 0) {
                             this.centipede.get(i).posunHore();
-                            this.centipede.get(i).setPocitadlo(this.moznyPocetPosunuti[this.random.nextInt(this.moznyPocetPosunuti.length - 1)]);
-                        } else {
-                            this.centipede.get(i).posunDole();
-                            this.centipede.get(i).setPocitadlo(9);
+                            this.centipede.get(i).odpocitajZPocitadla();
+                            break;
                         }
-                    } else {
-                        this.centipede.get(i).posunVpravo();
-                    }
-                    break;
-                case VLAVO:
-                    if (jeVPrekazke(suradnicaHlavyX, suradnicaHlavyY)) {
-                        if (this.centipede.get(i).getSurHlavyY() == 680) {
-                            this.centipede.get(i).posunHore();
-                            this.centipede.get(i).setPocitadlo(this.moznyPocetPosunuti[this.random.nextInt(this.moznyPocetPosunuti.length - 1)]);
+
+                        if (predoslaZakruta == Smery.VPRAVO) {
+                            this.centipede.get(i).posunVlavo();
                         } else {
-                            this.centipede.get(i).posunDole();
-                            this.centipede.get(i).setPocitadlo(9);
+                            this.centipede.get(i).posunVpravo();
                         }
-                    } else {
-                        this.centipede.get(i).posunVlavo();
-                    }
-                    break;
+                        break;
+                    case DOLE:
+                        if (this.centipede.get(i).getPocitadlo() != 0) {
+                            this.centipede.get(i).posunDole();
+                            this.centipede.get(i).odpocitajZPocitadla();
+                            break;
+                        }
+
+                        if (predoslaZakruta == Smery.VPRAVO) {
+                            this.centipede.get(i).posunVlavo();
+                        } else {
+                            this.centipede.get(i).posunVpravo();
+                        }
+                        break;
+                    case VPRAVO:
+                        if (jeVPrekazke(suradnicaHlavyX + 20, suradnicaHlavyY)) {
+                            if (this.centipede.get(i).getSurHlavyY() == 680) {
+                                this.centipede.get(i).posunHore();
+                                this.centipede.get(i).setPocitadlo(this.moznyPocetPosunuti[this.random.nextInt(this.moznyPocetPosunuti.length - 1)]);
+                            } else {
+                                this.centipede.get(i).posunDole();
+                                this.centipede.get(i).setPocitadlo(9);
+                            }
+                        } else {
+                            this.centipede.get(i).posunVpravo();
+                        }
+                        break;
+                    case VLAVO:
+                        if (jeVPrekazke(suradnicaHlavyX, suradnicaHlavyY)) {
+                            if (this.centipede.get(i).getSurHlavyY() == 680) {
+                                this.centipede.get(i).posunHore();
+                                this.centipede.get(i).setPocitadlo(this.moznyPocetPosunuti[this.random.nextInt(this.moznyPocetPosunuti.length - 1)]);
+                            } else {
+                                this.centipede.get(i).posunDole();
+                                this.centipede.get(i).setPocitadlo(9);
+                            }
+                        } else {
+                            this.centipede.get(i).posunVlavo();
+                        }
+                        break;
+                }
             }
         }
     }
@@ -133,10 +142,10 @@ public class OvladanieCentipede {
      */
     private boolean jeVPrekazke(int surX, int surY) {
         ArrayList<Kamen> kamene = this.prekazky.getKamene();
-        
+
         for (Kamen k : kamene) {
             boolean jeMimoMapy = surX <= 0 || surX >= 700;
-            
+
             if ( ((surX >= k.getX() && surX < k.getX() + 20) && (surY + 20 > k.getY() && surY - 20 < k.getY())) || jeMimoMapy ) {
                 return true;
             }
@@ -147,7 +156,7 @@ public class OvladanieCentipede {
     public ArrayList<Centipede> getVsetkyCentipede() {
         return this.centipede;
     }
-    
+
     public void skry() {
         for (Centipede c : this.centipede) {
             c.skry();

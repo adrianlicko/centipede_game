@@ -1,16 +1,17 @@
 #BlueJ class context
 comment0.target=Menu
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ g\ here.\r\n\r\n\ @author\ Bro\ Code,\ Java\ Code\ Junkie\r\n\ Odkazy\ na\ vide\u00E1\:\r\n\ Bro\ Code\:\ \ \ \ \ \ \ \ \ https\://www.youtube.com/watch?v\=pDqjHozkMBs\r\n\ Java\ Code\ Junkie\:\ https\://www.youtube.com/watch?v\=4PfDdJ8GFHI&t\r\n
 comment1.params=
 comment1.target=Menu()
-comment2.params=e
-comment2.target=void\ actionPerformed(java.awt.event.ActionEvent)
-comment3.params=e
-comment3.target=void\ actionPerformed(java.awt.event.ActionEvent)
+comment2.params=
+comment2.target=void\ spustiHruCentipede()
+comment3.params=stav
+comment3.target=void\ vypniHruCentipede(java.lang.String)
 comment4.params=
-comment4.target=void\ vypniHru()
+comment4.target=void\ spustiObchod()
 comment5.params=
-comment5.target=void\ spustiHru()
+comment5.target=void\ vykresli()
 comment6.params=
-comment6.target=void\ obchod()
-numComments=7
+comment6.target=void\ skry()
+comment7.params=
+comment7.target=void\ skryTL()
+numComments=8

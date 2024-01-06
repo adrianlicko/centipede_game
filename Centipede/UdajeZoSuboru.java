@@ -9,26 +9,26 @@ import java.util.Map;
 class UdajeZoSuboru {
     private static UdajeZoSuboru instancia = null;
     private static String zadaneMeno;
-    
+
     private UdajeZoSuboru() {
-        
+
     }
-    
+
     public static int getSkore() {
         String cestaKSuboru = "udaje.txt";
 
         try {
             // Čítanie existujúcich hodnôt zo súboru
-            Map<String, Integer> skoreMapa = citajSkoreZoSuboru(cestaKSuboru);
+            Map<String, SkoreInfo> skoreMapa = citajSkoreZoSuboru(cestaKSuboru);
 
             // Získanie skóre pre dané meno
-            return skoreMapa.getOrDefault(zadaneMeno, 0);
+            return skoreMapa.getOrDefault(zadaneMeno, new SkoreInfo()).getSkore();
         } catch (IOException e) {
             e.printStackTrace();
             return 0; // V prípade chyby vrátiť nulu
         }
     }
-    
+
     public static void setMeno(String menoHraca) {
         zadaneMeno = menoHraca;
     }
@@ -36,18 +36,41 @@ class UdajeZoSuboru {
     public static String getMeno() {
         return zadaneMeno;
     }
-    
+
     public static void zapisSkore(int hodnota) {
         String cestaKSuboru = "udaje.txt";
 
         try {
             // Čítanie existujúcich hodnôt zo súboru
-            Map<String, Integer> skoreMapa = citajSkoreZoSuboru(cestaKSuboru);
+            Map<String, SkoreInfo> skoreMapa = citajSkoreZoSuboru(cestaKSuboru);
 
             // Pripočítanie nových hodnôt
-            int existujuceSkore = skoreMapa.getOrDefault(zadaneMeno, 0);
+            SkoreInfo existujuceSkoreInfo = skoreMapa.getOrDefault(zadaneMeno, new SkoreInfo());
+            int existujuceSkore = existujuceSkoreInfo.getSkore();
+            String farba = existujuceSkoreInfo.getFarba();
             int noveSkore = existujuceSkore + hodnota;
-            skoreMapa.put(zadaneMeno, noveSkore);
+            skoreMapa.put(zadaneMeno, new SkoreInfo(noveSkore, farba));
+
+            // Zapísanie hodnôt späť do súboru
+            zapisSkoreDoSuboru(cestaKSuboru, skoreMapa);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static void odpocitajSkore(int hodnota) {
+        String cestaKSuboru = "udaje.txt";
+
+        try {
+            // Čítanie existujúcich hodnôt zo súboru
+            Map<String, SkoreInfo> skoreMapa = citajSkoreZoSuboru(cestaKSuboru);
+
+            // Pripočítanie nových hodnôt
+            SkoreInfo existujuceSkoreInfo = skoreMapa.getOrDefault(zadaneMeno, new SkoreInfo());
+            int existujuceSkore = existujuceSkoreInfo.getSkore();
+            String farba = existujuceSkoreInfo.getFarba();
+            int noveSkore = existujuceSkore - hodnota;
+            skoreMapa.put(zadaneMeno, new SkoreInfo(noveSkore, farba));
 
             // Zapísanie hodnôt späť do súboru
             zapisSkoreDoSuboru(cestaKSuboru, skoreMapa);
@@ -56,8 +79,8 @@ class UdajeZoSuboru {
         }
     }
 
-    private static Map<String, Integer> citajSkoreZoSuboru(String cesta) throws IOException {
-        Map<String, Integer> skoreMapa = new HashMap<>();
+    private static Map<String, SkoreInfo> citajSkoreZoSuboru(String cesta) throws IOException {
+        Map<String, SkoreInfo> skoreMapa = new HashMap<>();
 
         try (BufferedReader citac = new BufferedReader(new FileReader(cesta))) {
             String riadok;
@@ -65,8 +88,8 @@ class UdajeZoSuboru {
                 String[] casti = riadok.split(" = ");
                 if (casti.length == 2) {
                     String menoHraca = casti[0];
-                    int skore = Integer.parseInt(casti[1]);
-                    skoreMapa.put(menoHraca, skore);
+                    SkoreInfo skoreInfo = parseSkoreInfo(casti[1]);
+                    skoreMapa.put(menoHraca, skoreInfo);
                 }
             }
         }
@@ -74,15 +97,105 @@ class UdajeZoSuboru {
         return skoreMapa;
     }
 
-    private static void zapisSkoreDoSuboru(String cesta, Map<String, Integer> skoreMapa) throws IOException {
+    private static void zapisSkoreDoSuboru(String cesta, Map<String, SkoreInfo> skoreMapa) throws IOException {
         try (BufferedWriter zapisovac = new BufferedWriter(new FileWriter(cesta))) {
-            for (Map.Entry<String, Integer> zaznam : skoreMapa.entrySet()) {
-                zapisovac.write(zaznam.getKey() + " = " + zaznam.getValue());
+            for (Map.Entry<String, SkoreInfo> zaznam : skoreMapa.entrySet()) {
+                zapisovac.write(zaznam.getKey() + " = " + zaznam.getValue().toString());
                 zapisovac.newLine();
             }
         }
     }
+
+    private static SkoreInfo parseSkoreInfo(String skoreInfoStr) {
+        String[] casti = skoreInfoStr.split(", ");
+        if (casti.length == 2) {
+            int skore = Integer.parseInt(casti[0]);
+            String farba = casti[1];
+            return new SkoreInfo(skore, farba);
+        } else {
+            return new SkoreInfo();
+        }
+    }
+
+    private static class SkoreInfo {
+        private int skore;
+        private String farba;
+        
+        public void setFarbaLode(String novaFarba) {
+            this.farba = novaFarba;
+        }
+
+        public SkoreInfo() {
+            this.skore = 0;
+            this.farba = TypLode.MODRA.getFarbaRakety(); // Default farba
+        }
+
+        public SkoreInfo(int skore, String farba) {
+            this.skore = skore;
+            this.farba = farba;
+        }
+
+        public int getSkore() {
+            return skore;
+        }
+
+        public String getFarba() {
+            return farba;
+        }
+
+        @Override
+        public String toString() {
+            return skore + ", " + farba;
+        }
+    }
     
+    public static void setFarbaLode(String novaFarba) {
+        String cestaKSuboru = "udaje.txt";
+
+        try {
+            // Čítanie existujúcich hodnôt zo súboru
+            Map<String, SkoreInfo> skoreMapa = citajSkoreZoSuboru(cestaKSuboru);
+
+            // Získanie existujúceho SkoreInfo
+            SkoreInfo existujuceSkoreInfo = skoreMapa.getOrDefault(zadaneMeno, new SkoreInfo());
+
+            // Aktualizácia farby
+            existujuceSkoreInfo.setFarbaLode(novaFarba);
+
+            // Uloženie aktualizovaných hodnôt späť do súboru
+            skoreMapa.put(zadaneMeno, existujuceSkoreInfo);
+            zapisSkoreDoSuboru(cestaKSuboru, skoreMapa);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public TypLode getfarbaLode() {
+        String cestaKSuboru = "udaje.txt";
+
+        try {
+            // Čítanie existujúcich hodnôt zo súboru
+            Map<String, SkoreInfo> skoreMapa = citajSkoreZoSuboru(cestaKSuboru);
+
+            // Získanie farby pre dané meno
+            SkoreInfo skoreInfo = skoreMapa.getOrDefault(zadaneMeno, new SkoreInfo());
+            String farba = skoreInfo.getFarba();
+
+            // Prechod cez enum TypLode a hľadanie enumu podľa názvu farby
+            for (TypLode typLode : TypLode.values()) {
+                if (typLode.getFarbaRakety().equals(farba)) {
+                    return typLode;
+                }
+            }
+
+            // Ak farba nenájdená, vrátiť defaultnú farbu
+            return TypLode.MODRA;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return TypLode.MODRA; // V prípade chyby vrátiť defaultnú farbu
+        }
+    }
+
     public static UdajeZoSuboru getInstancia() {
         if (instancia == null) {
             instancia = new UdajeZoSuboru();

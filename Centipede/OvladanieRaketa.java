@@ -37,7 +37,6 @@ public class OvladanieRaketa {
     public boolean lodKoliziaSPavukom() {
         for (Pavuk p : this.ovladaniePavuk.getVsetkyPavuci()) {
             if ((this.raketa.getX() + 30 > p.getX()) && (this.raketa.getX() < p.getX() + 25) && (this.raketa.getY() + 30 > p.getY()) && (this.raketa.getY() < p.getY() + 25)) {
-                System.out.println("umrel s pavukom");
                 p.skry();
                 this.ovladaniePavuk.getVsetkyPavuci().remove(p);
                 this.ovladaniePavuk.novyPavuk();
@@ -53,7 +52,6 @@ public class OvladanieRaketa {
         for (Centipede c : vsetkyCentipede) {
             for (CastiTela cast : c.getTelo()) {
                 if ((this.raketa.getX() + 25 > cast.getX()) && (this.raketa.getX() < cast.getX() + 15) && (this.raketa.getY() + 25 > cast.getY()) && (this.raketa.getY() < cast.getY() + 15)) {
-                    System.out.println("umrel s centi");
                     return true;
                 }
             }
@@ -64,7 +62,6 @@ public class OvladanieRaketa {
     public boolean lodKoliziaSPrekazkami(int surX, int surY) { // s kamenmi
         for (Kamen k : this.prekazky.getKamene()) {
             if ((surX + 25 > k.getX()) && (surX < k.getX() + 15) && (surY + 25 > k.getY()) && (surY < k.getY() + 15)) {
-                System.out.println("umrel s prekazkou");
                 return true;
             }
         }

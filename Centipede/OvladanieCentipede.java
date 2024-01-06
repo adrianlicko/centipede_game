@@ -23,7 +23,7 @@ public class OvladanieCentipede {
         //this.pocitadlo = 0;
 
         // Využíva sa keď je centipede na spodku mapy. Náhodne o jedno z týchto čísel sa posunie hore.
-        this.moznyPocetPosunuti = new int[]{9, 19, 29, 39, 49};
+        this.moznyPocetPosunuti = new int[]{9, 19, 29, 39, 49, 59, 69};
 
         this.hra = h;
 
@@ -107,7 +107,7 @@ public class OvladanieCentipede {
                         break;
                     case VPRAVO:
                         if (jeVPrekazke(suradnicaHlavyX + 20, suradnicaHlavyY)) {
-                            if (this.centipede.get(i).getSurHlavyY() == 680) {
+                            if (this.centipede.get(i).getSurHlavyY() >= 665) {
                                 this.centipede.get(i).posunHore();
                                 this.centipede.get(i).setPocitadlo(this.moznyPocetPosunuti[this.random.nextInt(this.moznyPocetPosunuti.length - 1)]);
                             } else {
@@ -120,7 +120,7 @@ public class OvladanieCentipede {
                         break;
                     case VLAVO:
                         if (jeVPrekazke(suradnicaHlavyX, suradnicaHlavyY)) {
-                            if (this.centipede.get(i).getSurHlavyY() == 680) {
+                            if (this.centipede.get(i).getSurHlavyY() >= 665) {
                                 this.centipede.get(i).posunHore();
                                 this.centipede.get(i).setPocitadlo(this.moznyPocetPosunuti[this.random.nextInt(this.moznyPocetPosunuti.length - 1)]);
                             } else {
@@ -144,7 +144,7 @@ public class OvladanieCentipede {
         ArrayList<Kamen> kamene = this.prekazky.getKamene();
 
         for (Kamen k : kamene) {
-            boolean jeMimoMapy = surX <= 0 || surX >= 700;
+            boolean jeMimoMapy = surX <= 0 || surX >= 800;
 
             if ( ((surX >= k.getX() && surX < k.getX() + 20) && (surY + 20 > k.getY() && surY - 20 < k.getY())) || jeMimoMapy ) {
                 return true;

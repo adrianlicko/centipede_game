@@ -7,14 +7,17 @@ class HUD {
     private static HUD instancia = null;
     private static int skore;
     private static BlokTextu skoreText;
+    private static Obrazok skoreObrazok;
     private static int pocetZivotov;
     private static ArrayList<Obrazok> zivoty;
     
     private HUD() {
         skore = 0;
-        skoreText = new BlokTextu("Skore: " + skore, 650, 725);
+        skoreText = new BlokTextu("" + skore, 720, 725);
         skoreText.zmenFont("Arial", StylFontu.BOLD, 30);
-        skoreText.zmenFarbu("red");
+        skoreText.zmenFarbu("yellow");
+        
+        skoreObrazok = new Obrazok("pics\\Skore.png", 675, 699);
         
         pocetZivotov = 0;
         zivoty = new ArrayList<Obrazok>();
@@ -31,16 +34,17 @@ class HUD {
     
     public void pridajSkore(int hodnota) {
         skore += hodnota;
-        skoreText.zmenText("Skore: " + Integer.toString(skore));
+        skoreText.zmenText("" + Integer.toString(skore));
     }
     
     public void odoberSkore(int hodnota) {
         skore -= hodnota;
-        skoreText.zmenText("Skore: " + Integer.toString(skore));
+        skoreText.zmenText("" + Integer.toString(skore));
     }
     
     public void zobrazSkore() {
         skoreText.zobraz();
+        skoreObrazok.zobraz();
     }
     
     public int getPocetZivotov() {
@@ -72,7 +76,9 @@ class HUD {
     }
     
     public void skry() {
+        skoreText.zmenText("0");
         skoreText.skry();
+        skoreObrazok.skry();
         
         for (Obrazok o : zivoty) {
             o.skry();

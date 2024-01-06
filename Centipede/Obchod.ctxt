@@ -1,5 +1,19 @@
 #BlueJ class context
 comment0.target=Obchod
-comment1.params=
-comment1.target=Obchod()
-numComments=2
+comment1.params=m\ h
+comment1.target=Obchod(Menu,\ Hra)
+comment2.params=
+comment2.target=void\ kupLod1()
+comment3.params=
+comment3.target=void\ kupLod2()
+comment4.params=
+comment4.target=void\ kupLod3()
+comment5.params=l
+comment5.target=void\ kupLod(TypLode)
+comment6.params=
+comment6.target=void\ vykresli()
+comment7.params=
+comment7.target=void\ escUkoncenie()
+comment8.params=
+comment8.target=void\ skry()
+numComments=9

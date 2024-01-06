@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=Hra
-comment1.params=m\ me
-comment1.target=Hra(Menu,\ java.lang.String)
+comment1.params=m\ o
+comment1.target=Hra(Menu,\ Obchod)
 comment2.params=dlzkaCentipede\ pocetPrekazok
 comment2.target=void\ spustiHru(int,\ int)
 comment3.params=

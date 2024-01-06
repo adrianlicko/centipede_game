@@ -50,7 +50,7 @@ public class OvladanieNaboj {
         while (iterator.hasNext()) {
             Naboj n = iterator.next();
             n.posunHore();
-            if (nabojKoliziaSPrekazkami(n) || nabojKoliziaSCentipede(n) || nabojMimoMapy(n) || nabojKoliziaSPavukom(n)) {
+            if (this.nabojKoliziaSPrekazkami(n) || this.nabojKoliziaSCentipede(n) || this.nabojMimoMapy(n) || this.nabojKoliziaSPavukom(n)) {
                 n.skry();
                 iterator.remove();
             }
@@ -66,6 +66,7 @@ public class OvladanieNaboj {
                 kamene.remove(k);
                 this.prekazky.setKamene(kamene);
                 HUD.getInstancia().pridajSkore(2);
+                System.out.println("naboj hit s kamenom");
                 return true;
             }
         }
@@ -101,6 +102,7 @@ public class OvladanieNaboj {
                             c.getTelo().remove(hitIndex);
                         }
                     }
+                    System.out.println("naboj hit s centipede");
                     return true;
                 }
             }
@@ -115,6 +117,7 @@ public class OvladanieNaboj {
                 this.ovladaniePavuk.getVsetkyPavuci().remove(p);
                 HUD.getInstancia().pridajSkore(12);
                 this.ovladaniePavuk.novyPavuk();
+                System.out.println("naboj hit s pavukom");
                 return true;
             }
         }

@@ -10,7 +10,6 @@ public class Kamen {
         this.y = y;
         
         this.kamen = new Obrazok("pics\\rock.png", this.x, this.y);
-        this.kamen.zobraz();
     }
     
     public int getX() {

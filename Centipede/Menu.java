@@ -10,6 +10,7 @@ public class Menu {
     private Obrazok obchodButton;
     private Manazer manazer;
     private Hra hra;
+    private Obchod obchod;
     private String menoHraca;
     private BlokTextu stav;
 
@@ -34,9 +35,13 @@ public class Menu {
     }
     
     public void spustiHruCentipede() {
-        if (this.hra == null) {
+        if (this.hra == null && this.obchod == null) {
             this.skry();
-            this.hra = new Hra(this, this.menoHraca);
+            HUD.getInstancia().setDefaultHodnoty();
+            
+            this.hra = new Hra(this, this.obchod);
+            
+            
             this.hra.spustiHru(10, 70);
         }
     }
@@ -66,7 +71,19 @@ public class Menu {
     }
     
     public void spustiObchod() {
-        
+        if (this.obchod == null) {
+            this.skry();
+            this.obchod = new Obchod(this, this.hra);
+            this.manazer.spravujObjekt(this.obchod);
+        }
+    }
+    
+    public void vypniObchod() {
+        if (this.hra == null && this.obchod != null) {
+            this.manazer.prestanSpravovatObjekt(this.obchod);
+            this.obchod = null;
+            this.vykresli();
+        }
     }
     
     public void vykresli() {
@@ -80,13 +97,11 @@ public class Menu {
     
     public void skry() {
         this.obchodButton.skry();
-        
         this.hraButton.skry();
-        
         this.nazovHryButton.skry();
+        if (this.stav != null) {
+            this.stav.skry();
+        }
     }
     
-    public void skryTL() {
-        this.obchodButton.skry();
-    }
 }

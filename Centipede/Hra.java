@@ -12,11 +12,11 @@ public class Hra {
     private TypLode lod;
     private TypPavuka pavuk;
     private Menu menu;
-    private String menoHraca;
+    private Obchod obchod;
     
-    public Hra(Menu m, String me) {
+    public Hra(Menu m, Obchod o) {
         this.menu = m;
-        this.menoHraca = me;
+        this.obchod = o;
     }
     
     public void spustiHru(int dlzkaCentipede, int pocetPrekazok) {
@@ -30,11 +30,22 @@ public class Hra {
         this.ovladanieCentipede = new OvladanieCentipede(dlzkaCentipede, this.prekazky, this);
         this.manazer.spravujObjekt(this.ovladanieCentipede);
         
-        this.pavuk = TypPavuka.CERVENA;
+        if (UdajeZoSuboru.getInstancia().getfarbaLode().equals(TypLode.MODRA)) {
+            this.lod = TypLode.MODRA;
+            this.pavuk = TypPavuka.MODRA;
+        } else if (UdajeZoSuboru.getInstancia().getfarbaLode().equals(TypLode.CERVENA)) {
+            this.lod = TypLode.CERVENA;
+            this.pavuk = TypPavuka.CERVENA;
+        } else if (UdajeZoSuboru.getInstancia().getfarbaLode().equals(TypLode.ZLTA)) {
+            this.lod = TypLode.ZLTA;
+            this.pavuk = TypPavuka.ZLTA;
+        } else {
+            System.out.println("Zla farba");
+        }
+        
         this.ovladaniePavuk = new OvladaniePavuk(this.prekazky, this.pavuk);
         this.manazer.spravujObjekt(this.ovladaniePavuk);
         
-        this.lod = TypLode.CERVENA;
         HUD.getInstancia().zobrazSkore();
         HUD.getInstancia().zobrazZivoty();
         HUD.getInstancia().pridajZivoty(this.lod.getZivotyRakety());
@@ -46,7 +57,9 @@ public class Hra {
     }
     
     public void escUkoncenie() {
-        this.vypniHru("prehra");
+        if (this.obchod == null) {
+            this.vypniHru("prehra");
+        }
     }
     
     public void vypniHru(String stav) {

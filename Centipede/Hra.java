@@ -74,6 +74,7 @@ public class Hra {
         
         if (stav.equals("vyhra")) {
             UdajeZoSuboru.getInstancia().zapisSkore(HUD.getInstancia().getSkore());
+            UdajeZoSuboru.getInstancia().pripocitajLevel();
         }
         HUD.getInstancia().setDefaultHodnoty();
         HUD.getInstancia().skry();

@@ -83,7 +83,7 @@ public class Centipede {
 
     public void vykresli() {
         for (int i = 0; i < this.centipede.size(); i++) {
-            this.centipede.get(i).zobraz();
+            this.centipede.get(i).vykresli();
         }
     }
 

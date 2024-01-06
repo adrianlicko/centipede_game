@@ -13,6 +13,43 @@ class UdajeZoSuboru {
     private UdajeZoSuboru() {
 
     }
+    
+    public static void pripocitajLevel() {
+        String cestaKSuboru = "udaje.txt";
+
+        try {
+            // Čítanie existujúcich hodnôt zo súboru
+            Map<String, SkoreInfo> skoreMapa = citajSkoreZoSuboru(cestaKSuboru);
+
+            // Pripočítanie nových hodnôt
+            SkoreInfo existujuceSkoreInfo = skoreMapa.getOrDefault(zadaneMeno, new SkoreInfo());
+            int existujuciLevel = existujuceSkoreInfo.getLevel();
+            int novyLevel = existujuciLevel + 1;
+            String farba = existujuceSkoreInfo.getFarba();
+            int skore = existujuceSkoreInfo.getSkore();
+            skoreMapa.put(zadaneMeno, new SkoreInfo(skore, farba, novyLevel));
+
+            // Zapísanie hodnôt späť do súboru
+            zapisSkoreDoSuboru(cestaKSuboru, skoreMapa);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static int getLevel() {
+        String cestaKSuboru = "udaje.txt";
+
+        try {
+            // Čítanie existujúcich hodnôt zo súboru
+            Map<String, SkoreInfo> skoreMapa = citajSkoreZoSuboru(cestaKSuboru);
+
+            // Získanie levelu pre dané meno
+            return skoreMapa.getOrDefault(zadaneMeno, new SkoreInfo()).getLevel();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return 0; // V prípade chyby vrátiť nulu
+        }
+    }
 
     public static int getSkore() {
         String cestaKSuboru = "udaje.txt";
@@ -48,8 +85,9 @@ class UdajeZoSuboru {
             SkoreInfo existujuceSkoreInfo = skoreMapa.getOrDefault(zadaneMeno, new SkoreInfo());
             int existujuceSkore = existujuceSkoreInfo.getSkore();
             String farba = existujuceSkoreInfo.getFarba();
+            int level = existujuceSkoreInfo.getLevel();
             int noveSkore = existujuceSkore + hodnota;
-            skoreMapa.put(zadaneMeno, new SkoreInfo(noveSkore, farba));
+            skoreMapa.put(zadaneMeno, new SkoreInfo(noveSkore, farba, level));
 
             // Zapísanie hodnôt späť do súboru
             zapisSkoreDoSuboru(cestaKSuboru, skoreMapa);
@@ -69,8 +107,9 @@ class UdajeZoSuboru {
             SkoreInfo existujuceSkoreInfo = skoreMapa.getOrDefault(zadaneMeno, new SkoreInfo());
             int existujuceSkore = existujuceSkoreInfo.getSkore();
             String farba = existujuceSkoreInfo.getFarba();
+            int level = existujuceSkoreInfo.getLevel();
             int noveSkore = existujuceSkore - hodnota;
-            skoreMapa.put(zadaneMeno, new SkoreInfo(noveSkore, farba));
+            skoreMapa.put(zadaneMeno, new SkoreInfo(noveSkore, farba, level));
 
             // Zapísanie hodnôt späť do súboru
             zapisSkoreDoSuboru(cestaKSuboru, skoreMapa);
@@ -108,10 +147,11 @@ class UdajeZoSuboru {
 
     private static SkoreInfo parseSkoreInfo(String skoreInfoStr) {
         String[] casti = skoreInfoStr.split(", ");
-        if (casti.length == 2) {
+        if (casti.length == 3) {
             int skore = Integer.parseInt(casti[0]);
             String farba = casti[1];
-            return new SkoreInfo(skore, farba);
+            int level = Integer.parseInt(casti[2]);
+            return new SkoreInfo(skore, farba, level);
         } else {
             return new SkoreInfo();
         }
@@ -120,6 +160,7 @@ class UdajeZoSuboru {
     private static class SkoreInfo {
         private int skore;
         private String farba;
+        private int level;
         
         public void setFarbaLode(String novaFarba) {
             this.farba = novaFarba;
@@ -128,11 +169,13 @@ class UdajeZoSuboru {
         public SkoreInfo() {
             this.skore = 0;
             this.farba = TypLode.MODRA.getFarbaRakety(); // Default farba
+            this.level = 1;
         }
 
-        public SkoreInfo(int skore, String farba) {
+        public SkoreInfo(int skore, String farba, int level) {
             this.skore = skore;
             this.farba = farba;
+            this.level = level;
         }
 
         public int getSkore() {
@@ -142,10 +185,14 @@ class UdajeZoSuboru {
         public String getFarba() {
             return farba;
         }
+        
+        public int getLevel() {
+            return level;
+        }
 
         @Override
         public String toString() {
-            return skore + ", " + farba;
+            return skore + ", " + farba + ", " + level;
         }
     }
     

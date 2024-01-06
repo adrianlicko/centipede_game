@@ -7,6 +7,7 @@ import fri.shapesge.StylFontu;
 public class Menu {
     private Obrazok nazovHryButton;
     private Obrazok hraButton;
+    private BlokTextu dalsiLevel;
     private Obrazok obchodButton;
     private Manazer manazer;
     private Hra hra;
@@ -30,6 +31,9 @@ public class Menu {
         
         this.nazovHryButton = new Obrazok("pics\\nazovHryButton.png", 200, 50);
         this.hraButton = new Obrazok("pics\\hraButton.png", 275, 270);
+        this.dalsiLevel = new BlokTextu("Ďalší level :" + (UdajeZoSuboru.getInstancia().getLevel() + 1), 275, 240);
+        this.dalsiLevel.zmenFont("Arial", StylFontu.BOLD, 30);
+        this.dalsiLevel.zmenFarbu("black");
         this.obchodButton = new Obrazok("pics\\obchodButton.png", 275, 400);
         this.vykresli();
     }
@@ -41,8 +45,8 @@ public class Menu {
             
             this.hra = new Hra(this, this.obchod);
             
-            
-            this.hra.spustiHru(10, 70);
+            int nasledujuciLevel = UdajeZoSuboru.getInstancia().getLevel() + 1;
+            this.hra.spustiHru(Levely.getInstancia().getDlzkaCentipede(nasledujuciLevel), Levely.getInstancia().getPocetPrekazok(nasledujuciLevel));
         }
     }
     
@@ -71,7 +75,7 @@ public class Menu {
     }
     
     public void spustiObchod() {
-        if (this.obchod == null) {
+        if (this.obchod == null && this.hra == null) {
             this.skry();
             this.obchod = new Obchod(this, this.hra);
             this.manazer.spravujObjekt(this.obchod);
@@ -92,12 +96,15 @@ public class Menu {
         
         this.nazovHryButton.zobraz();
         this.hraButton.zobraz();
+        this.dalsiLevel.zobraz();
+        this.dalsiLevel.zmenText("Ďalší level :" + (UdajeZoSuboru.getInstancia().getLevel() + 1));
         this.obchodButton.zobraz();
     }
     
     public void skry() {
         this.obchodButton.skry();
         this.hraButton.skry();
+        this.dalsiLevel.skry();
         this.nazovHryButton.skry();
         if (this.stav != null) {
             this.stav.skry();

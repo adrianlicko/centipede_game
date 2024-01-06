@@ -1,1 +1,1 @@
-r = 9998249, CERVENA
+adrian = 375, CERVENA, 6

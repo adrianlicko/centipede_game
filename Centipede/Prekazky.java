@@ -3,16 +3,12 @@ import java.util.Random;
 
 public class Prekazky {
     private ArrayList<Kamen> kamene;
-    private int pocetPrekazok;
+    private final int pocetPrekazok;
     private Random random;
-    private ArrayList<Integer> vsetkySurX;
-    private ArrayList<Integer> vsetkySurY;
 
     public Prekazky(int pocetPrekazok) {
         this.kamene = new ArrayList<Kamen>();
         this.pocetPrekazok = pocetPrekazok;
-        this.vsetkySurX = new ArrayList<Integer>();
-        this.vsetkySurY = new ArrayList<Integer>();
     }
 
     public void pridajKamene() {
@@ -37,8 +33,7 @@ public class Prekazky {
             /*
              * Problém kedy centipede narazí do kameňa a posunie sa nižšie do dalšieho kameňa.
              * Aby tento problém nenastal, tak riešenie je zabrániť generácií týchto pozíc,
-             * a to tak, že na rohových svetových stranách prekážky už nemôže vzniknúť
-             * žiadna nová.
+             * a to tak, že na "rohoch" prekážok už nemôže vzniknúť žiadna nová.
              */
             boolean spravneHodnoty = true;
             for (Kamen k : this.kamene) {
@@ -51,7 +46,7 @@ public class Prekazky {
 
             if (spravneHodnoty) {
                 this.kamene.add(new Kamen(suradnicaX, suradnicaY));
-                this.kamene.get(this.kamene.size() - 1).zobraz();
+                this.kamene.get(this.kamene.size() - 1).vykresli();
             }
         }
     }
@@ -61,29 +56,12 @@ public class Prekazky {
     }
 
     public void setKamene(ArrayList<Kamen> noveKamene) {
-        //for (Kamen k : this.kamene) {
-        //    k.skry();
-        //}
-        //this.kamene.clear();
-        //this.kamene = null;
         this.kamene = noveKamene;
-        //System.out.println(this.kamene);
-        //for (Kamen k : this.kamene) {
-        //    k.zobraz();
-        //}
     }
 
     public void skry() {
         for (Kamen k : this.kamene) {
             k.skry();
         }
-        //this.kamene.clear();
-        //this.kamene = null;
-
-        //this.vsetkySurX.clear();
-        //this.vsetkySurX = null;
-
-        //this.vsetkySurY.clear();
-        //this.vsetkySurY = null;
     }
 }

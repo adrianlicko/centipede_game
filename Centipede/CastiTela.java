@@ -19,7 +19,7 @@ public class CastiTela {
         return this.y;
     }
     
-    public void zobraz() {
+    public void vykresli() {
         this.castTela.zobraz();
     }
     

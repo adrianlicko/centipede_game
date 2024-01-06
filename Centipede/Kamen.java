@@ -1,9 +1,9 @@
 import fri.shapesge.Obrazok;
 
 public class Kamen {
-    private Obrazok kamen;
-    private int x;
-    private int y;
+    private final Obrazok kamen;
+    private final int x;
+    private final int y;
 
     public Kamen(int x, int y) {
         this.x = x;
@@ -20,7 +20,7 @@ public class Kamen {
         return this.y;
     }
     
-    public void zobraz() {
+    public void vykresli() {
         this.kamen.zobraz();
     }
     

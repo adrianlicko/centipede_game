@@ -1,7 +1,12 @@
 import fri.shapesge.Obrazok;
 
+/**
+ * Jedna časť centipede.
+ * 
+ * @author Adrián Ličko
+ */
 public class CastiTela {
-    private Obrazok castTela;
+    private final Obrazok castTela;
     private int x;
     private int y;
 

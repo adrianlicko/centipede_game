@@ -1,7 +1,9 @@
 #BlueJ class context
 comment0.target=Pavuk
+comment0.text=\r\n\ Pavuk,\ sl\u00FA\u017Ei\ pre\ zni\u010Denie\ vesm\u00EDrnej\ lode.\r\n\ \r\n\ @author\ Adri\u00E1n\ Li\u010Dko\r\n
 comment1.params=pa\ x\ y
 comment1.target=Pavuk(TypPavuka,\ int,\ int)
+comment1.text=\r\n\ @param\ pa,\ dost\u00E1va\ enum,\ na\ z\u00E1kladne\ ktor\u00E9ho\ sa\ zobraz\u00ED\ spr\u00E1vny\ obr\u00E1zok\ pav\u00FAka\ a\ nast\u00E1v\u00ED\ sa\ je\ ho\ r\u00FDchlos\u0165\ pri\ pohybe.\r\n\ @param\ x\r\n\ @param\ y\r\n
 comment10.params=
 comment10.target=int\ getX()
 comment11.params=

@@ -1,5 +1,6 @@
 #BlueJ class context
 comment0.target=HUD
+comment0.text=\r\n\ Singleton\ trieda,\ zodpovedn\u00E1\ za\ vytvorenie\ a\ zobrazenie\ HUD.\r\n\ Zobrazuje\ po\u010Det\ \u017Eivotov\ a\ po\u010Det\ sk\u00F3re\ z\u00EDskan\u00E9ho\ v\ danej\ hre.\r\n\ \r\n\ @author\ Adri\u00E1n\ Li\u010Dko\r\n
 comment1.params=
 comment1.target=HUD()
 comment10.params=

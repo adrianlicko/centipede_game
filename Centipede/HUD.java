@@ -2,9 +2,17 @@ import fri.shapesge.BlokTextu;
 import fri.shapesge.StylFontu;
 import fri.shapesge.Obrazok;
 import java.util.ArrayList;
+import fri.shapesge.Obdlznik;
 
+/**
+ * Singleton trieda, zodpovedná za vytvorenie a zobrazenie HUD.
+ * Zobrazuje počet životov a počet skóre získaného v danej hre.
+ * 
+ * @author Adrián Ličko
+ */
 class HUD {
     private static HUD instancia = null;
+    private static Obdlznik obdlznik;
     private static int skore;
     private static BlokTextu skoreText;
     private static Obrazok skoreObrazok;
@@ -12,6 +20,11 @@ class HUD {
     private static ArrayList<Obrazok> zivoty;
     
     private HUD() {
+        obdlznik = new Obdlznik(0, 700);
+        obdlznik.zmenFarbu("black");
+        obdlznik.zmenStrany(800, 30);
+        obdlznik.zobraz();
+        
         skore = 0;
         skoreText = new BlokTextu("" + skore, 720, 725);
         skoreText.zmenFont("Arial", StylFontu.BOLD, 30);
@@ -45,6 +58,7 @@ class HUD {
     public void zobrazSkore() {
         skoreText.zobraz();
         skoreObrazok.zobraz();
+        obdlznik.zobraz();
     }
     
     public int getPocetZivotov() {
@@ -79,6 +93,7 @@ class HUD {
         skoreText.zmenText("0");
         skoreText.skry();
         skoreObrazok.skry();
+        obdlznik.skry();
         
         for (Obrazok o : zivoty) {
             o.skry();

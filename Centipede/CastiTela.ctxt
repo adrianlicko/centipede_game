@@ -1,5 +1,6 @@
 #BlueJ class context
 comment0.target=CastiTela
+comment0.text=\r\n\ Jedna\ \u010Das\u0165\ centipede.\r\n\ \r\n\ @author\ Adri\u00E1n\ Li\u010Dko\r\n
 comment1.params=cestaKObrazku\ x\ y
 comment1.target=CastiTela(java.lang.String,\ int,\ int)
 comment10.params=x\ y

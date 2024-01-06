@@ -1,9 +1,11 @@
 #BlueJ class context
 comment0.target=Prekazky
+comment0.text=\r\n\ Predstavuje\ viacero\ prek\u00E1\u017Eok,\ kame\u0148ov.\r\n\r\n\ @author\ Adri\u00E1n\ Li\u010Dko\r\n\ \r\n\ \r\n\ Constructor\ for\ objects\ of\ class\ sd\r\n\ \r\n\ \r\n\ An\ example\ of\ a\ method\ -\ replace\ this\ comment\ with\ your\ own\r\n\ \r\n\ @param\ \ y\ \ a\ sample\ parameter\ for\ a\ method\r\n\ @return\ \ \ \ the\ sum\ of\ x\ and\ y\r\n
 comment1.params=pocetPrekazok
 comment1.target=Prekazky(int)
 comment2.params=
 comment2.target=void\ pridajKamene()
+comment2.text=\r\n\ Prek\u00E1\u017Eky\ sa\ generuj\u00FA\ tak,\ \u017Ee\ sa\ n\u00E1hodne\ vyber\u00FA\ s\u00FAradnice\ pod\u013Ea\ ve\u013Ekosti\ pl\u00E1tna.\r\n\ N\u00E1sledne\ sa\ s\u00FAradnice\ generuj\u00FA\ st\u00E1le\ dokola\ a\u017E\ k\u00FDm\ nie\ s\u00FA\ deliteln\u00E9\ \u010D\u00EDslom\ 20.\ Je\ to\ z\ d\u00F4vodu\ aby\ sa\ uchoval\ grid,\ kv\u00F4li\ pohybu\ centipede.\r\n\ Potom\ sa\ e\u0161te\ prekontroluj\u00FA\ cez\ spravneHodnoty\ \u010Di\ nenastal\ probl\u00E9m,\ kedy\ by\ centipede\ narazila\ do\ prek\u00E1\u017Eky\ a\ rovno\ pod\ \u0148ou,\ resp.\ na\ jednom\ z\ jej\ rohu\ by\ bola\ dal\u0161ia.\ \r\n\ V\ takom\ pr\u00EDpade\ sa\ prek\u00E1\u017Eke\ na\ takom\ mieste\ nesmie\ vygenerova\u0165.\r\n
 comment3.params=
 comment3.target=java.util.ArrayList\ getKamene()
 comment4.params=noveKamene

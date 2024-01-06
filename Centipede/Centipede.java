@@ -1,32 +1,50 @@
 import fri.shapesge.Obrazok;
 import java.util.ArrayList;
 
-public class Centipede {
 
-    private ArrayList<CastiTela> centipede; //Zoznam častí tela
-    private ArrayList<Smery> historiaPohybu; //Zoznam všetkých doterajších posunov hlavy, telo hlavu následuje
-    private Smery smer;
-    private int dlzkaTela;
+/**
+ * Jedna celá centipede tvorená z jednotlivých častí.
+ *
+ * @author Adrián Ličko
+ */
+public class Centipede {
+    private ArrayList<CastiTela> centipede;
+    private ArrayList<Smery> historiaPohybu;
+    private final Smery smer;
+    private final int dlzkaTela;
     private int x;
     private int y;
     private int pocitadlo;
-
+    
+    /**
+     * @param smer, nastaví začiatočný smer ktorým sa bude centipede uberať.
+     * @param dlzkaTela
+     * @param surX
+     * @param surY
+     */
     public Centipede(Smery smer, int dlzkaTela, int surX, int surY) {
+        // Zoznam častí tela
         this.centipede = new ArrayList<CastiTela>();
+        // Zoznam všetkých doterajších posunov hlavy. Telo hlavu následuje
         this.historiaPohybu = new ArrayList<Smery>();
         this.smer = smer;
         this.dlzkaTela = dlzkaTela;
         // Súradnice začiatočnej pozícií hlavy
-        this.x = surX; // 360
-        this.y = surY; // -40
-        
+        this.x = surX;
+        this.y = surY;
+        // K počítadlu pristupuje trieda OvladanieCentipede, ktorá mení jeho hodnotu a slúži na udanie počtu posunutí, resp. koľkokrát sa má centipede kam pohnúť
         this.pocitadlo = 0;
         
         this.vytvorCentipede();
     }
     
+    /**
+     * Vytvorí novú cetipede.
+     * Jedna centipede sa skladá z arraylistu, ktorý obsahuje CastiTela.
+     * Vždy za prvý prvok sa nahrá hlava, a potom telo.
+     */
     public void vytvorCentipede() {
-        this.centipede.add(new CastiTela("pics\\centipedeHead.png" ,this.x, this.y)); //Na prvej pozícií musí byť vždy hlava
+        this.centipede.add(new CastiTela("pics\\centipedeHead.png" ,this.x, this.y));
         if (this.smer == Smery.VLAVO) {
             for (int i = 1; i < this.dlzkaTela; i++) {
                 this.centipede.add(new CastiTela("pics\\centipedeBody.png", this.x+(i*20), this.y));
@@ -64,14 +82,6 @@ public class Centipede {
         return this.centipede.get(0).getY();
     }
 
-    public ArrayList<Smery> getHistoriaPohybu() {
-        return this.historiaPohybu;
-    }
-    
-    public void pridajPohyb(Smery smer) {
-        this.historiaPohybu.add(smer);
-    }
-
     public Smery getPoslednaZakruta() {
         for (int i = this.historiaPohybu.size() - 1; i >= 0; i--) {
             if (this.historiaPohybu.get(i) == Smery.VPRAVO || this.historiaPohybu.get(i) == Smery.VLAVO) {
@@ -81,44 +91,33 @@ public class Centipede {
         return null;
     }
 
-    public void vykresli() {
-        for (int i = 0; i < this.centipede.size(); i++) {
-            this.centipede.get(i).vykresli();
-        }
-    }
-
     public void posunHore() {
         this.centipede.get(0).posunZvisle(Smery.HORE.getVektor());
-        //this.y += Smery.HORE.getVektor();
-        this.pridajPohyb(Smery.HORE);
+        this.historiaPohybu.add(Smery.HORE);
         this.nasledujHlavu();
     }
 
     public void posunDole() {
         this.centipede.get(0).posunZvisle(Smery.DOLE.getVektor());
-        //this.y += Smery.DOLE.getVektor();
-        this.pridajPohyb(Smery.DOLE);
+        this.historiaPohybu.add(Smery.DOLE);
         this.nasledujHlavu();
     }
 
     public void posunVpravo() {
         this.centipede.get(0).posunVodorovne(Smery.VPRAVO.getVektor());
-        //this.x += Smery.VPRAVO.getVektor();
-        this.pridajPohyb(Smery.VPRAVO);
+        this.historiaPohybu.add(Smery.VPRAVO);
         this.nasledujHlavu();
     }
 
     public void posunVlavo() {
         this.centipede.get(0).posunVodorovne(Smery.VLAVO.getVektor());
-        //this.x += Smery.VLAVO.getVektor();
-        this.pridajPohyb(Smery.VLAVO);
+        this.historiaPohybu.add(Smery.VLAVO);
         this.nasledujHlavu();
     }
 
-    public void zmenPoziciuHlavy(int x, int y) {
-        this.centipede.get(0).zmenPolohu(x, y);
-    }
-
+    /**
+     * Vždy pri každom posune hlavy, sa do histórie pohybu zadá údaj smeru, podľa ktorého sa hýbu ostatné časti centipede.
+     */
     public void nasledujHlavu() {
         for (int i = 1; i < this.centipede.size(); i++) {
             Smery pohyb = this.historiaPohybu.get(this.historiaPohybu.size() - (i*10));
@@ -130,8 +129,18 @@ public class Centipede {
         }
     }
     
+    public ArrayList<Smery> getHistoriaPohybu() {
+        return this.historiaPohybu;
+    }
+    
     public ArrayList<CastiTela> getTelo() {
         return this.centipede;
+    }
+    
+    public void vykresli() {
+        for (int i = 0; i < this.centipede.size(); i++) {
+            this.centipede.get(i).vykresli();
+        }
     }
     
     public void skry() {
@@ -140,16 +149,5 @@ public class Centipede {
         }
         this.centipede.clear();
         this.centipede = null;
-    }
-
-    public void printniHistoriuPohybu() {
-        for (int i = 0; i < this.historiaPohybu.size(); i++)
-            System.out.println(this.historiaPohybu.get(i));
-    }
-
-    public void printniPozicie() {
-        for (int i = 0; i < this.centipede.size(); i++) {
-            System.out.println(this.centipede.get(i).getX() + " " + this.centipede.get(i).getY());
-        }
     }
 }

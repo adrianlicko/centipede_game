@@ -3,80 +3,93 @@ import fri.shapesge.StylFontu;
 import fri.shapesge.Obrazok;
 import java.util.ArrayList;
 
+/**
+ * Zobrazí grafické rozhranie obchodu.
+ * 
+ * @author Adrián Ličko
+ */
 public class Obchod {
     private BlokTextu skoreText;
     private Obrazok skoreObrazok;
-    private TypLode lod;
+    private TypLode typLode;
     private Obrazok obchodText;
     private BlokTextu aktualnaLodText;
     private Obrazok aktualnaLodObrazok;
-    // Obrázky všetkých lodí
     private ArrayList<Obrazok> lodeObrazky;
-    // Pole všetkých údajov jednotlivých lodí
     private ArrayList<BlokTextu>[] udajeVsekychLodi;
     private ArrayList<BlokTextu> ocislovanie;
     private BlokTextu stavZakupenia;
-    private Menu menu;
-    private Hra hra;
-
+    private final Menu menu;
+    private final Hra hra;
+    
+    /**
+     * @param m, získanie inštancie menu, aby sme vedeli zavolať metódu na vypnutie obchodu.
+     * @param h, získanie inštancie hry, z dôvodu, že iba ak hra je null, tak fungujú metódy na kúpu inej lode.
+     */
     public Obchod(Menu m, Hra h) {
         this.menu = m;
         this.hra = h;
 
+        // Text s počtom skóre
         this.skoreText = new BlokTextu("" + UdajeZoSuboru.getInstancia().getSkore(), 120, 695);
         this.skoreText.zmenFont("Aptos", StylFontu.BOLD, 60);
         this.skoreText.zmenFarbu("darkYellow");
         this.skoreText.zobraz();
-
+        // Obrázok pre logo skóre
         this.skoreObrazok = new Obrazok("pics\\Skore_Store.png", 20, 630);
         this.skoreObrazok.zobraz();
-
+        // Získanie aktuálnej lode, ktorú hráč vlastní zo súboru "udaje.txt", základnú loď ktorú hráč vlastní je modrá
         if (UdajeZoSuboru.getInstancia().getfarbaLode().equals(TypLode.MODRA)) {
-            this.lod = TypLode.MODRA;
+            this.typLode = TypLode.MODRA;
         } else if (UdajeZoSuboru.getInstancia().getfarbaLode().equals(TypLode.CERVENA)) {
-            this.lod = TypLode.CERVENA;
+            this.typLode = TypLode.CERVENA;
         } else if (UdajeZoSuboru.getInstancia().getfarbaLode().equals(TypLode.ZLTA)) {
-            this.lod = TypLode.ZLTA;
+            this.typLode = TypLode.ZLTA;
         } else {
             System.out.println(UdajeZoSuboru.getInstancia().getfarbaLode());
-            System.out.println(TypLode.MODRA.getFarbaRakety());
+            System.out.println(TypLode.MODRA.getFarbaLode());
             System.out.println("Zla farba");
         }
-
+        
         this.obchodText = new Obrazok("pics\\obchodText.png", 240, 50);
         this.obchodText.zobraz();
-
+        
         this.aktualnaLodText = new BlokTextu("Aktuálne zvolená vesmírna loď:", 370, 700);
         this.aktualnaLodText.zmenFont("Aptos", StylFontu.BOLD, 20);
         this.aktualnaLodText.zmenFarbu("black");
         this.aktualnaLodText.zobraz();
-
-        this.aktualnaLodObrazok = new Obrazok(this.lod.getObchodCestaKObrazku(), 690, 610);
+        // Zobrazí obrázok aktuálnej vesmírnej lodi, ktorú hráč vlastní
+        this.aktualnaLodObrazok = new Obrazok(this.typLode.getObchodCestaKObrazku(), 690, 610);
         this.aktualnaLodObrazok.zobraz();
-
+        // Zoznam obrázkov všetkých lodí
         this.lodeObrazky = new ArrayList<Obrazok>();
-
+        
         for (int i = 0; i < TypLode.values().length; i++) {
             TypLode l = TypLode.values()[i];
 
             this.lodeObrazky.add(new Obrazok(l.getObchodCestaKObrazku(), 120, (120*i)+200));
         }
+        /*
+         * Pole, ktoré je veľké podľa toho, koľko je obrázkov. Obrázkov je toľko koľko je enumov v TypLode
+         * Toto pole obsahuje ArrayList prvky BlokTextu
+         */
         this.udajeVsekychLodi = new ArrayList[this.lodeObrazky.size()];
-
+        
+        // Očíslovanie každej z lodi, na základe čísla, hráč stlačí klávesu ktorá vyvolá metódu na kúpu danej lodi
         this.ocislovanie = new ArrayList<BlokTextu>();
         for (int i = 0; i < this.lodeObrazky.size(); i++) {
             this.ocislovanie.add(new BlokTextu("" + (i+1) + "."));
             this.ocislovanie.get(i).zmenFont("Showcard Gothic", StylFontu.BOLD, 60);
             this.ocislovanie.get(i).zmenFarbu("black");
         }
-
+        // Vlastnosti každej lode sa nahrajú do ArrayListov v poli, v ktorom sa daná vesmírna loď nachádza
         for (int i = 0; i < this.udajeVsekychLodi.length; i++) {
             TypLode l = TypLode.values()[i];
             TypPavuka p = TypPavuka.values()[i];
 
             this.udajeVsekychLodi[i] = new ArrayList<BlokTextu>();
-            this.udajeVsekychLodi[i].add(new BlokTextu("Rýchlosť pohybu: " + l.getRychlostRakety()));
-            this.udajeVsekychLodi[i].add(new BlokTextu("Životy: " + l.getZivotyRakety()));
+            this.udajeVsekychLodi[i].add(new BlokTextu("Rýchlosť pohybu: " + l.getRychlostLode()));
+            this.udajeVsekychLodi[i].add(new BlokTextu("Životy: " + l.getZivotyLode()));
             this.udajeVsekychLodi[i].add(new BlokTextu("Rýchlosť striel: " + l.getRychlostNaboja()));
             this.udajeVsekychLodi[i].add(new BlokTextu("Rýchlosť pavúka: " + p.getRychlostPavuka()));
             this.udajeVsekychLodi[i].add(new BlokTextu("Cena: " + l.getCenaLode()));
@@ -102,7 +115,10 @@ public class Obchod {
             this.kupLod(TypLode.ZLTA);
         }
     }
-
+    
+    /**
+     * Metóda kúpi loď na základe zavolanej jednej z metód vyššie ak má hráč dosť skóre.
+     */
     public void kupLod(TypLode l) {
         if (this.stavZakupenia != null) {
             this.stavZakupenia.skry();
@@ -111,7 +127,7 @@ public class Obchod {
 
         if (UdajeZoSuboru.getInstancia().getSkore() >= l.getCenaLode()) {
             UdajeZoSuboru.getInstancia().odpocitajSkore(l.getCenaLode());
-            UdajeZoSuboru.getInstancia().setFarbaLode(l.getFarbaRakety());
+            UdajeZoSuboru.getInstancia().setFarbaLode(l.getFarbaLode());
             this.aktualnaLodObrazok.zmenObrazok(l.getObchodCestaKObrazku());
 
             this.skoreText.zmenText("" + UdajeZoSuboru.getInstancia().getSkore());
@@ -157,6 +173,9 @@ public class Obchod {
         }
     }
 
+    /**
+     * Metóda vyvolaná manažérom, vtedy keď hráč stlačí Escape
+     */
     public void escUkoncenie() {
         this.skry();
         this.menu.vypniObchod();
@@ -188,7 +207,7 @@ public class Obchod {
         this.obchodText.skry();
         this.obchodText = null;
 
-        this.lod = null;
+        this.typLode = null;
 
         this.skoreObrazok.skry();
         this.skoreObrazok = null;

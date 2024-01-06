@@ -1,3 +1,8 @@
+/**
+ * Singleton, používaný na určenie dĺžky centipede, počtu prekážok, na základe zadaného levelu do parametrov metód.
+ * 
+ * @author Adrián Ličko
+ */
 class Levely {
     private static Levely instancia = null;
 

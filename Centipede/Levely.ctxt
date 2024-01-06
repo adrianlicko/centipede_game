@@ -1,5 +1,6 @@
 #BlueJ class context
 comment0.target=Levely
+comment0.text=\r\n\ Singleton,\ pou\u017E\u00EDvan\u00FD\ na\ ur\u010Denie\ d\u013A\u017Eky\ centipede,\ po\u010Dtu\ prek\u00E1\u017Eok,\ na\ z\u00E1klade\ zadan\u00E9ho\ levelu\ do\ parametrov\ met\u00F3d.\r\n\ \r\n\ @author\ Adri\u00E1n\ Li\u010Dko\r\n
 comment1.params=
 comment1.target=Levely()
 comment2.params=level

@@ -1,7 +1,9 @@
 #BlueJ class context
 comment0.target=Obchod
+comment0.text=\r\n\ Zobraz\u00ED\ grafick\u00E9\ rozhranie\ obchodu.\r\n\ \r\n\ @author\ Adri\u00E1n\ Li\u010Dko\r\n
 comment1.params=m\ h
 comment1.target=Obchod(Menu,\ Hra)
+comment1.text=\r\n\ @param\ m,\ z\u00EDskanie\ in\u0161tancie\ menu,\ aby\ sme\ vedeli\ zavola\u0165\ met\u00F3du\ na\ vypnutie\ obchodu.\r\n\ @param\ h,\ z\u00EDskanie\ in\u0161tancie\ hry,\ z\ d\u00F4vodu,\ \u017Ee\ iba\ ak\ hra\ je\ null,\ tak\ funguj\u00FA\ met\u00F3dy\ na\ k\u00FApu\ inej\ lode.\r\n
 comment2.params=
 comment2.target=void\ kupLod1()
 comment3.params=
@@ -10,10 +12,12 @@ comment4.params=
 comment4.target=void\ kupLod3()
 comment5.params=l
 comment5.target=void\ kupLod(TypLode)
+comment5.text=\r\n\ Met\u00F3da\ k\u00FApi\ lo\u010F\ na\ z\u00E1klade\ zavolanej\ jednej\ z\ met\u00F3d\ vy\u0161\u0161ie\ ak\ m\u00E1\ hr\u00E1\u010D\ dos\u0165\ sk\u00F3re.\r\n
 comment6.params=
 comment6.target=void\ vykresli()
 comment7.params=
 comment7.target=void\ escUkoncenie()
+comment7.text=\r\n\ Met\u00F3da\ vyvolan\u00E1\ mana\u017E\u00E9rom,\ vtedy\ ke\u010F\ hr\u00E1\u010D\ stla\u010D\u00ED\ Escape\r\n
 comment8.params=
 comment8.target=void\ skry()
 numComments=9

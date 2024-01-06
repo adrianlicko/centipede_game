@@ -1,6 +1,20 @@
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Predstavuje viacero prekážok, kameňov.
+ *
+ * @author Adrián Ličko
+ * 
+ * 
+ * Constructor for objects of class sd
+ * 
+ * 
+ * An example of a method - replace this comment with your own
+ * 
+ * @param  y  a sample parameter for a method
+ * @return    the sum of x and y
+ */
 public class Prekazky {
     private ArrayList<Kamen> kamene;
     private final int pocetPrekazok;
@@ -11,6 +25,12 @@ public class Prekazky {
         this.pocetPrekazok = pocetPrekazok;
     }
 
+    /**
+     * Prekážky sa generujú tak, že sa náhodne vyberú súradnice podľa veľkosti plátna.
+     * Následne sa súradnice generujú stále dokola až kým nie sú delitelné číslom 20. Je to z dôvodu aby sa uchoval grid, kvôli pohybu centipede.
+     * Potom sa ešte prekontrolujú cez spravneHodnoty či nenastal problém, kedy by centipede narazila do prekážky a rovno pod ňou, resp. na jednom z jej rohu by bola dalšia. 
+     * V takom prípade sa prekážke na takom mieste nesmie vygenerovať.
+     */
     public void pridajKamene() {
         this.random = new Random();
 
@@ -30,11 +50,6 @@ public class Prekazky {
                     break;
             }
 
-            /*
-             * Problém kedy centipede narazí do kameňa a posunie sa nižšie do dalšieho kameňa.
-             * Aby tento problém nenastal, tak riešenie je zabrániť generácií týchto pozíc,
-             * a to tak, že na "rohoch" prekážok už nemôže vzniknúť žiadna nová.
-             */
             boolean spravneHodnoty = true;
             for (Kamen k : this.kamene) {
                 if ((suradnicaX + 20 == k.getX() || suradnicaX - 20 == k.getX()) && (suradnicaY - 20 == k.getY() || suradnicaY + 20 == k.getY())) {

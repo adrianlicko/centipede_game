@@ -1,7 +1,9 @@
 #BlueJ class context
 comment0.target=Naboj
-comment1.params=l\ r
-comment1.target=Naboj(TypLode,\ Raketa)
+comment0.text=\r\n\ Predstavuje\ jeden\ n\u00E1boj.\r\n\ \r\n\ @author\ Adri\u00E1n\ Li\u010Dko\r\n
+comment1.params=tl\ l
+comment1.target=Naboj(TypLode,\ VesmirnaLod)
+comment1.text=\r\n\ @param\ l,\ enum,\ z\ ktor\u00E9ho\ sa\ berie\ r\u00FDchlos\u0165\ a\ farba\ n\u00E1boja.\r\n\ @param\ r,\ vesm\u00EDrna\ lo\u010F\ z\ ktorej\ n\u00E1boj\ vystrel\u00ED.\r\n
 comment2.params=
 comment2.target=int\ getX()
 comment3.params=

@@ -1,42 +1,48 @@
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Trieda, zodpovedná za ovládanie všetkých vytvorených centipede.
+ * 
+ * @author Adrián Ličko
+ */
 public class OvladanieCentipede {
     private ArrayList<Centipede> centipede;
     private Smery smer;
-    private Prekazky prekazky;
+    private final Prekazky prekazky;
     private Random random;
-    //private int pocitadlo;
-    private int[] moznyPocetPosunuti;
-    private Hra hra;
-
+    private final int[] moznyPocetPosunuti;
+    private final Hra hra;
+    
+    /**
+     * Inštanciu vyvoláva trieda Hra
+     * 
+     * @param dlzka, dĺžka prvej centipede na začiatku hry.
+     * @param p, získanie prekážok, objektov od ktorých sa centipede odrazí.
+     * @param h, získanie inštancie, z dôvodu, aby hru vedeli ukončiť.
+     */
     public OvladanieCentipede(int dlzka, Prekazky p, Hra h) {
-        // Zoznam jednotlivých centipede, každá centipede obsahuje zoznam tela
+        // Zoznam jednotlivých centipede, každý prvok obsahuje ArrayList, kde sú uložené časti tela
         this.centipede = new ArrayList<Centipede>();
-
-        // Prvá centipede bude vždy na začiatku nad plátnom smerovať dolava
+        // Vytvorenie prvej centipede na začiatku hry
         this.centipede.add(new Centipede(Smery.VLAVO, dlzka, 360, -40));
-
         this.centipede.get(0).vykresli();
-
-        // Slúži na to, aby sa centipede posunula o určitý počet krát, 1 pohyb z histórie pohybu sa vykoná viac krát.
-        //this.pocitadlo = 0;
-
-        // Využíva sa keď je centipede na spodku mapy. Náhodne o jedno z týchto čísel sa posunie hore.
+        /*
+         * Využíva sa, keď je centipede úplne dole na mape a posunom dole by už vyšla z mapy
+         * Vtedy sa posunie hore o náhodne zvolený prvok z poľa
+         */
         this.moznyPocetPosunuti = new int[]{9, 19, 29, 39, 49, 59, 69};
-
         this.hra = h;
+        this.prekazky = p;
 
-        this.prekazky = p; // Trieda Hra vytvára inštanciu na prekážky
-
-        // 2 posuny dole, pretože jej spawn je nad plátnom
+        // spawn prvej centipede je nad plátnom, takže ju musíme posunúť dole
         for (int i = 0; i < 10; i++) {
             this.centipede.get(0).posunDole();
             this.centipede.get(0).posunDole();
         }
 
         this.random = new Random();
-        // Náhodný smer po posunutí dole už keď sa centipede nachádza v hracej ploche
+        // Náhodne zvolený smer
         switch (random.nextInt(2)) {
             case 0:
                 this.centipede.get(0).posunVpravo();
@@ -46,7 +52,16 @@ public class OvladanieCentipede {
                 break;
         }
     }
-
+    
+    /**
+     * Vytvára novú centipede podľa zadaných parametrov.
+     * Metódu vyvoláva trieda OvladanieNaboj.
+     * 
+     * @param staraCentipede, predchodca z ktorej nová centipede vznikla
+     * @param dlzka, dĺžka novej centipede
+     * @param surX
+     * @param surY
+     */
     public void novaCentipede(Centipede staraCentipede, int dlzka, int surX, int surY) {
         Smery poslednaZakruta = staraCentipede.getPoslednaZakruta();
 
@@ -58,11 +73,11 @@ public class OvladanieCentipede {
 
     /**
      * Metódu vyvoláva manažér, opakuje sa stále dokola po určitom tiku.
-     * Zabezpečuje správny pohyb centipede v prípade ak narazí do prekážky alebo konca mapy.
+     * Zabezpečuje správny pohyb centipede, v prípade, ak narazí do prekážky alebo konca mapy.
      */
     public void ovladanieCentipedePocitacom() {
         if (this.centipede.size() == 0) {
-            this.hra.vypniHru("vyhra");
+            this.hra.vypniHru("vyhra"); // ukončenie hry, v prípade, ak sa už žiadna centipede nenachádza
         }
 
         if (this.centipede != null) {

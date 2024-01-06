@@ -1,19 +1,28 @@
 import fri.shapesge.Obdlznik;
 
+/**
+ * Predstavuje jeden náboj.
+ * 
+ * @author Adrián Ličko
+ */
 public class Naboj {
-    private Obdlznik naboj;
-    private Raketa raketa;
+    private final Obdlznik naboj;
+    private final VesmirnaLod lod;
     private int x, y;
-    private TypLode lod;
+    private final TypLode typLode;
 
-    public Naboj(TypLode l, Raketa r) {
+    /**
+     * @param l, enum, z ktorého sa berie rýchlosť a farba náboja.
+     * @param r, vesmírna loď z ktorej náboj vystrelí.
+     */
+    public Naboj(TypLode tl, VesmirnaLod l) {
+        this.typLode = tl;
         this.lod = l;
-        this.raketa = r;
-        this.x = this.raketa.getX();
-        this.y = this.raketa.getY();
+        this.x = this.lod.getX();
+        this.y = this.lod.getY();
         
         this.naboj = new Obdlznik(this.x, this.y);
-        this.naboj.zmenFarbu(this.lod.getFarbaNaboja());
+        this.naboj.zmenFarbu(this.typLode.getFarbaNaboja());
         this.naboj.zmenStrany(3, 10);
     }
     
@@ -34,8 +43,8 @@ public class Naboj {
     }
 
     public void posunHore() {
-        this.naboj.posunZvisle(-this.lod.getRychlostNaboja());
-        this.y += -this.lod.getRychlostNaboja();
+        this.naboj.posunZvisle(-this.typLode.getRychlostNaboja());
+        this.y += -this.typLode.getRychlostNaboja();
     }
     
     public void zmenPolohu(int surX, int surY) {

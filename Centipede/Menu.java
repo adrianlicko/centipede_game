@@ -4,11 +4,17 @@ import javax.swing.JOptionPane;
 import fri.shapesge.BlokTextu;
 import fri.shapesge.StylFontu;
 
+/**
+ * Trieda zodpovedná za zobrazenie grafického rozhrania pri štarte programu.
+ * Z menu sa dá dostať do hry alebo do obchodu.
+ * 
+ * @author Adrián Ličko
+ */
 public class Menu {
-    private Obrazok nazovHryButton;
-    private Obrazok hraButton;
-    private BlokTextu dalsiLevel;
-    private Obrazok obchodButton;
+    private final Obrazok nazovHryButton;
+    private final Obrazok hraButton;
+    private final BlokTextu dalsiLevel;
+    private final Obrazok obchodButton;
     private Manazer manazer;
     private Hra hra;
     private Obchod obchod;
@@ -18,10 +24,9 @@ public class Menu {
     public Menu() {
         this.menoHraca = JOptionPane.showInputDialog("Zadajte meno hráča. Je dôležité si ho zapamätať!");
         while (true) {
-            // == null kvoli ak uzivatel stlaci cancel, .length() == 0 ak stlaci ok
-            if (this.menoHraca == null) {
+            if (this.menoHraca == null) { // pre prípad ak hráč stlačí tlačítko Cancel
                 this.menoHraca = JOptionPane.showInputDialog("Zadajte meno hráča. Je dôležité si ho zapamätať!");
-            } else if (this.menoHraca.length() == 0) {
+            } else if (this.menoHraca.length() == 0) { // pre prípad ak hráč nezadá nič a stlačí tlačítko OK
                 this.menoHraca = JOptionPane.showInputDialog("Zadajte meno hráča. Je dôležité si ho zapamätať!");
             } else {
                 UdajeZoSuboru.getInstancia().setMeno(this.menoHraca);
@@ -38,6 +43,11 @@ public class Menu {
         this.vykresli();
     }
     
+    /**
+     * Spustí hru a skryje všetky objeky zobrazené v triede Menu.
+     * Spustenie hry vyvoláva KeyListener.
+     * Podmienka ktorá tam je, slúži na to, aby sa dala spustiť hra iba keď sa hráč nachádza v menu.
+     */
     public void spustiHruCentipede() {
         if (this.hra == null && this.obchod == null) {
             this.skry();
@@ -50,6 +60,12 @@ public class Menu {
         }
     }
     
+    /**
+     * Vypne hru a zobrazí menu.
+     * Túto metódu vyvoláva trieda Hra, ktorá aj vracia stav hry. 
+     * Na základe stavu, sa zobrazí text či hráč v danom leveli ktorý hral prehral alebo vyhral.
+     * @param stav
+     */
     public void vypniHruCentipede(String stav) {
         this.manazer.prestanSpravovatObjekt(this);
         this.hra = null;
@@ -74,6 +90,10 @@ public class Menu {
         this.stav.zobraz();
     }
     
+    /**
+     * Zobrazí obchod, kde si hráč môže kúpiť iné lode.
+     * Obchod sa zobrazí iba ak sa hráč nachádza v menu.
+     */
     public void spustiObchod() {
         if (this.obchod == null && this.hra == null) {
             this.skry();
@@ -82,6 +102,10 @@ public class Menu {
         }
     }
     
+    /**
+     * Vypne obchod a zobrazí menu.
+     * Túto metódu vyvoláva trieda Obchod, vtedy kedy ActionListener zachytí klávesu Escape.
+     */
     public void vypniObchod() {
         if (this.hra == null && this.obchod != null) {
             this.manazer.prestanSpravovatObjekt(this.obchod);
@@ -90,6 +114,9 @@ public class Menu {
         }
     }
     
+    /**
+     * Vykresluje objekty v menu.
+     */
     public void vykresli() {
         this.manazer = new Manazer();
         this.manazer.spravujObjekt(this);
@@ -100,7 +127,9 @@ public class Menu {
         this.dalsiLevel.zmenText("Ďalší level :" + (UdajeZoSuboru.getInstancia().getLevel() + 1));
         this.obchodButton.zobraz();
     }
-    
+    /**
+     * Skrýva objekty v menu.
+     */
     public void skry() {
         this.obchodButton.skry();
         this.hraButton.skry();

@@ -6,6 +6,18 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Singleton trieda, služiaca na zapisovanie a čítanie údajov v súbore "udaje.txt".
+ * Údaje kažého hráča sú uložené vo formáte "meno = skore, farba, level".
+ * Tieto údaje sa zapíšu vtedy kedy sa hráčovy uloží skóre, teda kedy hru vyhrá, keď zničí všetky časti centipede na hracej ploche.
+ * "meno" sa zadáva v triede Menu, v konštruktore cez JOptionPane.
+ * "skore" sa zapíše keď hru hráč vyhrá s hodnotou ktorú počas hry dosiahol.
+ * "farba" je v základe nastavená na modrú, resp. hráč má v základe modrú vesmirnu loď s modrým pavúkom.
+ * "level" sa tiež zapíše až vtedy, keď hráč vyhrá hru. Hodnota levelu je posledný prejdený level.
+ * 
+ * @author Stack Overflow, GeeksForGeeks - značná časť - veľa rôznych diskusií pospájaných dokopy
+ * @author ChatGPT - doladenie
+ */
 class UdajeZoSuboru {
     private static UdajeZoSuboru instancia = null;
     private static String zadaneMeno;
@@ -168,7 +180,7 @@ class UdajeZoSuboru {
 
         public SkoreInfo() {
             this.skore = 0;
-            this.farba = TypLode.MODRA.getFarbaRakety(); // Default farba
+            this.farba = TypLode.MODRA.getFarbaLode(); // Default farba
             this.level = 1;
         }
 
@@ -230,7 +242,7 @@ class UdajeZoSuboru {
 
             // Prechod cez enum TypLode a hľadanie enumu podľa názvu farby
             for (TypLode typLode : TypLode.values()) {
-                if (typLode.getFarbaRakety().equals(farba)) {
+                if (typLode.getFarbaLode().equals(farba)) {
                     return typLode;
                 }
             }

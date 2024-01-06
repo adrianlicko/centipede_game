@@ -1,19 +1,31 @@
 import fri.shapesge.Obrazok;
 import java.util.ArrayList;
 
+/**
+ * Pavuk, slúži pre zničenie vesmírnej lode.
+ * 
+ * @author Adrián Ličko
+ */
 public class Pavuk {
-    private Obrazok pavuk;
+    private final Obrazok pavuk;
     private ArrayList<Smery> historiaPohybu;
     private int x, y;
     private int pocitadloZvisle, pocitadloVodorovne;
-    private TypPavuka typPavuka;
+    private final TypPavuka typPavuka;
     
+    /**
+     * @param pa, dostáva enum, na základne ktorého sa zobrazí správny obrázok pavúka a nastáví sa je ho rýchlosť pri pohybe.
+     * @param x
+     * @param y
+     */
     public Pavuk(TypPavuka pa, int x, int y) {
+        // Zoznam všetkých posunov
         this.historiaPohybu = new ArrayList<Smery>();
         this.x = x;
         this.y = y;
         this.typPavuka = pa;
         this.pavuk = new Obrazok(this.typPavuka.getCestaKObrazku(), this.x, this.y);
+        // Počítadlá slúžia na zadanie počtu koľko krát sa má pavúk kam pohnúť
         this.pocitadloZvisle = 0;
         this.pocitadloVodorovne = 0;
     }

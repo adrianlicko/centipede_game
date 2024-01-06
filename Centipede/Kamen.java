@@ -1,5 +1,10 @@
 import fri.shapesge.Obrazok;
 
+/**
+ * Kameň, prekážka pre ostatné objekty
+ *
+ * @author Adrián Ličko
+ */
 public class Kamen {
     private final Obrazok kamen;
     private final int x;

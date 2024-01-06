@@ -1,1 +1,1 @@
-adrian = 375, CERVENA, 6
+adrian = 75, MODRA, 6

@@ -3,19 +3,35 @@ import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Trieda, zodpovedná za ovládanie a kontrolovanie kolízie vystreleného náboja.
+ * 
+ * @author Adrián Ličko
+ * @author Bro Code - časť Timer a TimerTask
+ * @author Lakshman Reddy - časť v ovladajNaboje() - iterator
+ */
 public class OvladanieNaboj {
-    private Raketa raketa;
+    private final VesmirnaLod lod;
     private ArrayList<Naboj> naboje;
-    private Prekazky prekazky;
-    private OvladanieCentipede ovladanieCentipede;
-    private TypLode lod;
-    private OvladaniePavuk ovladaniePavuk;
+    private final Prekazky prekazky;
+    private final OvladanieCentipede ovladanieCentipede;
+    private final TypLode typLode;
+    private final OvladaniePavuk ovladaniePavuk;
     private int pocitadlo;
-    private Timer timer;
+    private final Timer timer;
 
-    public OvladanieNaboj(Raketa r, Prekazky p, OvladanieCentipede oc, TypLode l, OvladaniePavuk op) {
-        this.raketa = r;
+    /**
+     * Vyvoláva trieda Hra.
+     * 
+     * @param l, vesmírna loď
+     * @param p, prekážky
+     * @param oc, ovládanie centipede
+     * @param tl, typ lode
+     * @param op, ovládanie pavúka
+     */
+    public OvladanieNaboj(VesmirnaLod l, Prekazky p, OvladanieCentipede oc, TypLode tl, OvladaniePavuk op) {
         this.lod = l;
+        this.typLode = tl;
 
         this.naboje = new ArrayList<Naboj>();
         this.prekazky = p;
@@ -28,12 +44,17 @@ public class OvladanieNaboj {
         this.timer = new Timer();
     }
 
+    /**
+     * Metódu vyvoláva manažér pri stlačení/držaní medzerníka.
+     * Spôsobí že raketa vystrelí náboj.
+     * Časť kódu, kde sa používa Timer, resp. TimerTask, nie je môj. Poskladal som ho z návodov od Bro Code.
+     */
     public void strel() {
         if (pocitadlo == 0) {
             pocitadlo = 1;
-            Naboj n = new Naboj(this.lod, this.raketa);
+            Naboj n = new Naboj(this.typLode, this.lod);
             this.naboje.add(n);
-            n.zmenPolohu(this.raketa.getX() + 13, this.raketa.getY()); // +13 aby strela vychádzala zo stredu rakety
+            n.zmenPolohu(this.lod.getX() + 13, this.lod.getY()); // +13 aby strela vychádzala zo stredu rakety a nie z jej rohu
             n.vykresli();
 
             timer.schedule(new TimerTask() {
@@ -44,7 +65,12 @@ public class OvladanieNaboj {
             }, 750); // delay medzi strelami, stlačením medzerníka
         }
     }
-
+    
+    /**
+     * Metódu vyvoláva manažér stále dokola cez tik.
+     * V prípade ak náboj, strela trafí jednu z prekážok alebo vyjde z mapy, tak sa zmaže.
+     * Použitie iterátoru z návodov od Lakshman Reddy na vyhnutie sa chyby ConcurrentModificationException počas mazania objektu keď sa s ním iteruje.
+     */
     public void ovladajNaboje() {
         Iterator<Naboj> iterator = this.naboje.iterator();
         while (iterator.hasNext()) {
@@ -57,7 +83,12 @@ public class OvladanieNaboj {
         }
     }
 
-    public boolean nabojKoliziaSPrekazkami(Naboj n) {
+    /**
+     * Slúži pre metódu ovladajNaboje().
+     * Kontroluje kolíziu medzi nábojom a prekážkami, kameňmi.
+     * @ param n, náboj.
+     */
+    private boolean nabojKoliziaSPrekazkami(Naboj n) {
         ArrayList<Kamen> kamene = this.prekazky.getKamene();
 
         for (Kamen k : kamene) {
@@ -72,8 +103,13 @@ public class OvladanieNaboj {
         }
         return false;
     }
-
-    public boolean nabojKoliziaSCentipede(Naboj n) {
+    
+    /**
+     * Slúži pre metódu ovladajNaboje().
+     * Kontroluje kolíziu medzi nábojom a centipede.
+     * @ param n, náboj.
+     */
+    private boolean nabojKoliziaSCentipede(Naboj n) {
         ArrayList<Centipede> vsetkyCentipede = this.ovladanieCentipede.getVsetkyCentipede();
 
         for (Centipede c : vsetkyCentipede) {
@@ -110,7 +146,12 @@ public class OvladanieNaboj {
         return false;
     }
 
-    public boolean nabojKoliziaSPavukom(Naboj n) {
+    /**
+     * Slúži pre metódu ovladajNaboje().
+     * Kontroluje kolíziu medzi nábojom a pavúkom.
+     * @ param n, náboj.
+     */
+    private boolean nabojKoliziaSPavukom(Naboj n) {
         for (Pavuk p : this.ovladaniePavuk.getVsetkyPavuci()) {
             if ((n.getX() + 11 >= p.getX() && n.getX() < p.getX() + 14) && (n.getY() + 30 > p.getY()) && (n.getY() < p.getY())) {
                 p.skry();
@@ -124,7 +165,12 @@ public class OvladanieNaboj {
         return false;
     }
 
-    public boolean nabojMimoMapy(Naboj n) {
+    /**
+     * Slúži pre metódu ovladajNaboje().
+     * Kontroluje či náboj vyšiel z mapy.
+     * @ param n, náboj.
+     */
+    private boolean nabojMimoMapy(Naboj n) {
         return n.getY() <= 0;
     }
     

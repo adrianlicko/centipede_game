@@ -1,11 +1,15 @@
 #BlueJ class context
 comment0.target=OvladaniePavuk
-comment1.params=p\ pa
-comment1.target=OvladaniePavuk(Prekazky,\ TypPavuka)
+comment0.text=\r\n\ Trieda,\ ktor\u00E1\ vytv\u00E1ra\ objekty\ Pavuk\ a\ ovl\u00E1da\ ich.\r\n\ \r\n\ @author\ Adri\u00E1n\ Li\u010Dko\r\n
+comment1.params=pa
+comment1.target=OvladaniePavuk(TypPavuka)
+comment1.text=\r\n\ @param\ pa,\ dost\u00E1va\ typ\ pav\u00FAka\ z\ enumu.\r\n
 comment2.params=
 comment2.target=void\ novyPavuk()
+comment2.text=\r\n\ Vytv\u00E1ra\ nov\u00E9ho\ pav\u00FAka.\r\n\ Met\u00F3du\ vyvol\u00E1va\ trieda\ OvladanieNaboj.\r\n
 comment3.params=
 comment3.target=void\ ovladajPavuka()
+comment3.text=\r\n\ Sl\u00FA\u017Ei\ na\ ovl\u00E1danie\ pohybu\ v\u0161etk\u00FDch\ vytvoren\u00FDch\ pav\u00FAkov.\r\n\ Met\u00F3du\ spravuje\ mana\u017E\u00E9r,\ ktor\u00FD\ ju\ neust\u00E1le\ vyvol\u00E1va.\r\n
 comment4.params=
 comment4.target=java.util.ArrayList\ getVsetkyPavuci()
 comment5.params=

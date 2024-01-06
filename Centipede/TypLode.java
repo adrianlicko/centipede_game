@@ -1,24 +1,29 @@
+/**
+ * Enum, obsahujúci všetky typy vesmírnych lodí a ich údajov, vlastností.
+ * 
+ * @author Adrián Ličko
+ */
 public enum TypLode
 {
     MODRA("pics\\DarkBlueSpaceShip_Store.png", "pics\\DarkBlueSpaceShip_player.png", "MODRA", 6, 3, "blue", 3, 0),
     CERVENA("pics\\DarkRedSpaceShip_Store.png", "pics\\DarkRedSpaceShip_player.png", "CERVENA", 4, 5, "red", 6, 150),
     ZLTA("pics\\DarkYellowSpaceShip_Store.png","pics\\DarkYellowSpaceShip_player.png", "ZLTA", 8, 1, "darkYellow", 2, 500);
     
-    private String obchodCestaKObrazku;
-    private String cestaKObrazku;
-    private String farbaRakety;
-    private int rychlostRakety;
-    private int zivotyRakety;
-    private String farbaNaboja;
-    private int rychlostNaboja;
-    private int cenaLode;
+    private final String obchodCestaKObrazku;
+    private final String cestaKObrazku;
+    private final String farbaLode;
+    private final int rychlostLode;
+    private int zivotyLode;
+    private final String farbaNaboja;
+    private final int rychlostNaboja;
+    private final int cenaLode;
 
-    TypLode(String obchodCestaKObrazku, String cestaKObrazku, String farbaRakety, int rychlostRakety, int zivotyRakety, String farbaNaboja, int rychlostNaboja, int cenaLode) {
+    TypLode(String obchodCestaKObrazku, String cestaKObrazku, String farbaLode, int rychlostLode, int zivotyLode, String farbaNaboja, int rychlostNaboja, int cenaLode) {
         this.obchodCestaKObrazku = obchodCestaKObrazku;
         this.cestaKObrazku = cestaKObrazku;
-        this.farbaRakety = farbaRakety;
-        this.rychlostRakety = rychlostRakety;
-        this.zivotyRakety = zivotyRakety;
+        this.farbaLode = farbaLode;
+        this.rychlostLode = rychlostLode;
+        this.zivotyLode = zivotyLode;
         this.farbaNaboja = farbaNaboja;
         this.rychlostNaboja = rychlostNaboja;
         this.cenaLode = cenaLode;
@@ -32,20 +37,20 @@ public enum TypLode
         return this.cestaKObrazku;
     }
     
-    public String getFarbaRakety() {
-        return this.farbaRakety;
+    public String getFarbaLode() {
+        return this.farbaLode;
     }
 
-    public int getRychlostRakety() {
-        return this.rychlostRakety;
+    public int getRychlostLode() {
+        return this.rychlostLode;
     }
     
-    public int getZivotyRakety() {
-        return this.zivotyRakety;
+    public int getZivotyLode() {
+        return this.zivotyLode;
     }
     
-    public void uberZivotRakety() {
-        this.zivotyRakety -= 1;
+    public void uberZivotLode() {
+        this.zivotyLode -= 1;
     }
     
     public String getFarbaNaboja() {

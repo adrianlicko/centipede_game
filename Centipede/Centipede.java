@@ -94,42 +94,24 @@ public class Centipede {
         this.centipede.get(0).posunZvisle(Smery.HORE.getVektor());
         this.historiaPohybu.add(Smery.HORE);
         this.nasledujHlavu();
-        
-        this.orezHistoriuPohybu();
     }
 
     public void posunDole() {
         this.centipede.get(0).posunZvisle(Smery.DOLE.getVektor());
         this.historiaPohybu.add(Smery.DOLE);
         this.nasledujHlavu();
-        
-        this.orezHistoriuPohybu();
     }
 
     public void posunVpravo() {
         this.centipede.get(0).posunVodorovne(Smery.VPRAVO.getVektor());
         this.historiaPohybu.add(Smery.VPRAVO);
         this.nasledujHlavu();
-        
-        this.orezHistoriuPohybu();
     }
 
     public void posunVlavo() {
         this.centipede.get(0).posunVodorovne(Smery.VLAVO.getVektor());
         this.historiaPohybu.add(Smery.VLAVO);
         this.nasledujHlavu();
-        
-        this.orezHistoriuPohybu();
-    }
-
-    /**
-     * Metóda, ktorá zabezpečuje aby dĺžka histórie pohybu centipede nebola zbytočne dlhá
-     */
-    private void orezHistoriuPohybu() {
-        int maxVelkostHistorie = this.dlzkaTela * 10;
-        while (this.historiaPohybu.size() > maxVelkostHistorie) {
-            this.historiaPohybu.remove(0);
-        }
     }
 
     /**

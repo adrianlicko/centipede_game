@@ -83,7 +83,7 @@ public class Pavuk {
             }
         }
         return null;
-    }
+    } 
 
     public Smery getPoslednyVodorovnyPohyb() {
         for (int i = this.historiaPohybu.size() - 1; i >= 0; i--) {

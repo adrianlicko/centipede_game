@@ -54,7 +54,8 @@ public class Prekazky {
 
             boolean spravneHodnoty = true;
             for (Kamen k : this.kamene) {
-                if ((suradnicaX + 20 == k.getX() || suradnicaX - 20 == k.getX()) && (suradnicaY - 20 == k.getY() || suradnicaY + 20 == k.getY())) {
+                if ((suradnicaX + 20 == k.getX() || suradnicaX - 20 == k.getX()) && (suradnicaY - 20 == k.getY() || suradnicaY + 20 == k.getY()) || 
+                (suradnicaX == k.getX() && suradnicaY == k.getY())) {
                     spravneHodnoty = false;
                     i--;
                     break;

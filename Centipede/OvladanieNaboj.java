@@ -114,19 +114,22 @@ public class OvladanieNaboj {
         for (Centipede c : vsetkyCentipede) {
             for (CastiTela cast : c.getTelo()) {
                 if ((n.getX() + 13 >= cast.getX()) && (n.getX() < cast.getX() + 12) && (n.getY() + 25 > cast.getY()) && (n.getY() < cast.getY())) {
-
+                    // Index zasiahnutej časti
                     int hitIndex = c.getTelo().indexOf(cast);
 
+                    // Ak sa zasiahne posledná existujúca časť z danej centipede
                     if (c.getTelo().size() == 1) {
                         cast.skry();
                         c.getTelo().remove(cast);
                         HUD.getInstancia().pridajSkore(10);
 
+                        // Ak sa zasiahne posledná časť ale ešte ostatné existujú
                     } else if (c.getTelo().size() != 1 && (hitIndex == c.getTelo().size() - 1)) {
                         cast.skry();
                         c.getTelo().remove(cast);
                         HUD.getInstancia().pridajSkore(5);
 
+                        // Ak sa zasiahne hoci ktorá iná časť, čiže od hlavy po predposlednú
                     } else {
                         this.ovladanieCentipede.novaCentipede(c, c.getTelo().size() - hitIndex - 1, cast.getX(), cast.getY());
                         HUD.getInstancia().pridajSkore(5);

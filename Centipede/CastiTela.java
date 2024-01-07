@@ -42,10 +42,6 @@ public class CastiTela {
         this.y += dialka;
     }
     
-    public void zmenUhol(int uhol) {
-        this.castTela.zmenUhol(uhol);
-    }
-    
     public void zmenObrazok(String cestaKObrazku) {
         this.castTela.zmenObrazok(cestaKObrazku);
     }

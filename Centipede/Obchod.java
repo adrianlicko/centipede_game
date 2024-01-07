@@ -125,7 +125,7 @@ public class Obchod {
     /**
      * Metóda kúpi loď na základe zavolanej jednej z metód vyššie ak má hráč dosť skóre.
      */
-    public void kupLod(TypLode l) {
+    private void kupLod(TypLode l) {
         if (this.stavZakupenia != null) {
             this.stavZakupenia.skry();
             this.stavZakupenia = null;
@@ -148,7 +148,7 @@ public class Obchod {
         this.stavZakupenia.zobraz();
     }
 
-    public void vykresli() {
+    private void vykresli() {
         int ocislovanieY = 265;
         int surX = 250;
         for (int i = 0; i < this.udajeVsekychLodi.length; i++) {
@@ -187,7 +187,7 @@ public class Obchod {
         this.menu.vypniObchod();
     }
 
-    public void skry() {
+    private void skry() {
         if (this.stavZakupenia != null) {
             this.stavZakupenia.skry();
         }

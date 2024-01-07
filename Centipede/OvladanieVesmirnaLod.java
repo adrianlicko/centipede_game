@@ -57,10 +57,10 @@ public class OvladanieVesmirnaLod {
      * Kontroluje či sa loď stretla s pavúkom.
      */
     private boolean lodKoliziaSPavukom() {
-        for (Pavuk p : this.ovladaniePavuk.getVsetkyPavuci()) {
+        for (Pavuk p : this.ovladaniePavuk.getVsetciPavuci()) {
             if ((this.lod.getX() + 30 > p.getX()) && (this.lod.getX() < p.getX() + 25) && (this.lod.getY() + 30 > p.getY()) && (this.lod.getY() < p.getY() + 25)) {
                 p.skry();
-                this.ovladaniePavuk.getVsetkyPavuci().remove(p);
+                this.ovladaniePavuk.getVsetciPavuci().remove(p);
                 this.ovladaniePavuk.novyPavuk();
                 return true;
             }
@@ -104,7 +104,7 @@ public class OvladanieVesmirnaLod {
      * Vyvolávané metódou na kontrolu kolízie s loďou.
      * Kontroluje či loď nevyšla z hracej plochy.
      */
-    public boolean jeMimoMapy() {
+    private boolean jeMimoMapy() {
         return (this.lod.getX() < -5 || this.lod.getX() > 775 || this.lod.getY() > 675 || this.lod.getY() <= 500); // -5, 775, na rezervu, inak 0 a 800, 500 je max vrch pre raketu
     }
 

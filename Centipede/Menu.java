@@ -124,7 +124,7 @@ public class Menu {
         this.nazovHryButton.zobraz();
         this.hraButton.zobraz();
         this.dalsiLevel.zobraz();
-        this.dalsiLevel.zmenText("Ďalší level :" + (UdajeZoSuboru.getInstancia().getLevel() + 1));
+        this.dalsiLevel.zmenText("Ďalší level: " + (UdajeZoSuboru.getInstancia().getLevel() + 1));
         this.obchodButton.zobraz();
     }
     /**

@@ -10,7 +10,7 @@ class Levely {
         
     }
     
-    public int getDlzkaCentipede(int level) {
+    public static int getDlzkaCentipede(int level) {
         if (level <= 2) {
             return 8;
         } else if (level <= 4) {
@@ -28,7 +28,7 @@ class Levely {
         return 14;
     }
     
-    public int getPocetPrekazok(int level) {
+    public static int getPocetPrekazok(int level) {
         if (level <= 2) {
             return 60;
         } else if (level <= 4) {

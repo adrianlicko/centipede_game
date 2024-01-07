@@ -181,7 +181,7 @@ class UdajeZoSuboru {
         SkoreInfo() {
             this.skore = 0;
             this.farba = TypLode.MODRA.getFarbaLode(); // Default farba
-            this.level = 1;
+            this.level = 0;
         }
 
         SkoreInfo(int skore, String farba, int level) {

@@ -123,7 +123,7 @@ public class OvladaniePavuk {
         }
     }
     
-    public ArrayList<Pavuk> getVsetkyPavuci() {
+    public ArrayList<Pavuk> getVsetciPavuci() {
         return this.pavuci;
     }
     

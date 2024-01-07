@@ -150,10 +150,10 @@ public class OvladanieNaboj {
      * @ param n, náboj.
      */
     private boolean nabojKoliziaSPavukom(Naboj n) {
-        for (Pavuk p : this.ovladaniePavuk.getVsetkyPavuci()) {
+        for (Pavuk p : this.ovladaniePavuk.getVsetciPavuci()) {
             if ((n.getX() + 11 >= p.getX() && n.getX() < p.getX() + 14) && (n.getY() + 30 > p.getY()) && (n.getY() < p.getY())) {
                 p.skry();
-                this.ovladaniePavuk.getVsetkyPavuci().remove(p);
+                this.ovladaniePavuk.getVsetciPavuci().remove(p);
                 HUD.getInstancia().pridajSkore(4);
                 this.ovladaniePavuk.novyPavuk();
                 return true;

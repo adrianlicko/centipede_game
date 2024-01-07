@@ -7,7 +7,8 @@ import fri.shapesge.Obrazok;
  */
 public class VesmirnaLod {
     private final Obrazok lod;
-    private int x, y;
+    private int x;
+    private int y;
     private final Naboj naboj;
     private final TypLode typLode;
 
@@ -16,7 +17,7 @@ public class VesmirnaLod {
      * @param surX
      * @param surY
      */
-    public VesmirnaLod(TypLode tl ,int surX, int surY) {
+    public VesmirnaLod(TypLode tl, int surX, int surY) {
         this.typLode = tl;
         this.x = surX;
         this.y = surY;

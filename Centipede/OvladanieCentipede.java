@@ -31,7 +31,7 @@ public class OvladanieCentipede {
          * Využíva sa, keď je centipede úplne dole na mape a posunom dole by už vyšla z mapy
          * Vtedy sa posunie hore o náhodne zvolený prvok z poľa
          */
-        this.moznyPocetPosunuti = new int[]{9, 19, 29, 39, 49, 59, 69};
+        this.moznyPocetPosunuti = new int[]{29, 39, 49, 59, 69};
         this.hra = h;
         this.prekazky = p;
 
@@ -43,7 +43,7 @@ public class OvladanieCentipede {
 
         this.random = new Random();
         // Náhodne zvolený smer
-        switch (random.nextInt(2)) {
+        switch (this.random.nextInt(2)) {
             case 0:
                 this.centipede.get(0).posunVpravo();
                 break;
@@ -82,68 +82,70 @@ public class OvladanieCentipede {
 
         if (this.centipede != null) {
             for (int i = 0; i < this.centipede.size(); i++) {
-                if (this.centipede.get(i).getTelo().size() == 0) {
+                Centipede c = this.centipede.get(i);
+                
+                if (c.getTelo().size() == 0) {
                     this.centipede.remove(i);
                     continue;
                 }
 
-                Smery predosliSmer = this.centipede.get(i).getHistoriaPohybu().get(this.centipede.get(i).getHistoriaPohybu().size() - 1);
-                Smery predoslaZakruta = this.centipede.get(i).getPoslednaZakruta();
+                Smery predosliSmer = c.getHistoriaPohybu().get(c.getHistoriaPohybu().size() - 1);
+                Smery predoslaZakruta = c.getPoslednaZakruta();
 
-                int suradnicaHlavyX = this.centipede.get(i).getSurHlavyX();
-                int suradnicaHlavyY = this.centipede.get(i).getSurHlavyY();
+                int suradnicaHlavyX = c.getSurHlavyX();
+                int suradnicaHlavyY = c.getSurHlavyY();
 
                 switch (predosliSmer) {
                     case HORE:
-                        if (this.centipede.get(i).getPocitadlo() != 0) {
-                            this.centipede.get(i).posunHore();
-                            this.centipede.get(i).odpocitajZPocitadla();
+                        if (c.getPocitadlo() != 0) {
+                            c.posunHore();
+                            c.odpocitajZPocitadla();
                             break;
                         }
 
                         if (predoslaZakruta == Smery.VPRAVO) {
-                            this.centipede.get(i).posunVlavo();
+                            c.posunVlavo();
                         } else {
-                            this.centipede.get(i).posunVpravo();
+                            c.posunVpravo();
                         }
                         break;
                     case DOLE:
-                        if (this.centipede.get(i).getPocitadlo() != 0) {
-                            this.centipede.get(i).posunDole();
-                            this.centipede.get(i).odpocitajZPocitadla();
+                        if (c.getPocitadlo() != 0) {
+                            c.posunDole();
+                            c.odpocitajZPocitadla();
                             break;
                         }
 
                         if (predoslaZakruta == Smery.VPRAVO) {
-                            this.centipede.get(i).posunVlavo();
+                            c.posunVlavo();
                         } else {
-                            this.centipede.get(i).posunVpravo();
+                            c.posunVpravo();
                         }
                         break;
                     case VPRAVO:
-                        if (jeVPrekazke(suradnicaHlavyX + 20, suradnicaHlavyY)) {
-                            if (this.centipede.get(i).getSurHlavyY() >= 665) {
-                                this.centipede.get(i).posunHore();
-                                this.centipede.get(i).setPocitadlo(this.moznyPocetPosunuti[this.random.nextInt(this.moznyPocetPosunuti.length - 1)]);
+                        if (this.jeVPrekazke(suradnicaHlavyX + 20, suradnicaHlavyY)) {
+                            if (c.getSurHlavyY() >= 665) {
+                                c.posunHore();
+                                c.setPocitadlo(this.moznyPocetPosunuti[this.random.nextInt(this.moznyPocetPosunuti.length - 1)]);
                             } else {
-                                this.centipede.get(i).posunDole();
-                                this.centipede.get(i).setPocitadlo(9);
+                                c.posunDole();
+                                c.setPocitadlo(9);
                             }
                         } else {
-                            this.centipede.get(i).posunVpravo();
+                            c.posunVpravo();
                         }
                         break;
                     case VLAVO:
-                        if (jeVPrekazke(suradnicaHlavyX, suradnicaHlavyY)) {
-                            if (this.centipede.get(i).getSurHlavyY() >= 665) {
-                                this.centipede.get(i).posunHore();
-                                this.centipede.get(i).setPocitadlo(this.moznyPocetPosunuti[this.random.nextInt(this.moznyPocetPosunuti.length - 1)]);
+                        if (this.jeVPrekazke(suradnicaHlavyX, suradnicaHlavyY)) {
+                            if (c.getSurHlavyY() >= 665) {
+                                c.posunHore();
+                                c.setPocitadlo(this.moznyPocetPosunuti[this.random.nextInt(this.moznyPocetPosunuti.length - 1)]);
                             } else {
-                                this.centipede.get(i).posunDole();
-                                this.centipede.get(i).setPocitadlo(9);
+                                c.posunDole();
+                                c.setPocitadlo(9);
                             }
                         } else {
-                            this.centipede.get(i).posunVlavo();
+                            c.posunVlavo();
                         }
                         break;
                 }

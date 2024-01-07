@@ -39,7 +39,7 @@ public class OvladanieNaboj {
         this.ovladanieCentipede = oc;
 
         this.ovladaniePavuk = op;
-
+        
         this.pocitadlo = 0;
         this.timer = new Timer();
     }
@@ -50,17 +50,17 @@ public class OvladanieNaboj {
      * Časť kódu, kde sa používa Timer, resp. TimerTask, nie je môj. Poskladal som ho z návodov od Bro Code.
      */
     public void strel() {
-        if (pocitadlo == 0) {
-            pocitadlo = 1;
+        if (this.pocitadlo == 0) {
+            this.pocitadlo = 1;
             Naboj n = new Naboj(this.typLode, this.lod);
             this.naboje.add(n);
             n.zmenPolohu(this.lod.getX() + 13, this.lod.getY()); // +13 aby strela vychádzala zo stredu rakety a nie z jej rohu
             n.vykresli();
 
-            timer.schedule(new TimerTask() {
+            this.timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    pocitadlo = 0;
+                    OvladanieNaboj.this.pocitadlo = 0;
                 }
             }, 750); // delay medzi strelami, stlačením medzerníka
         }
@@ -96,8 +96,7 @@ public class OvladanieNaboj {
                 k.skry();
                 kamene.remove(k);
                 this.prekazky.setKamene(kamene);
-                HUD.getInstancia().pridajSkore(2);
-                System.out.println("naboj hit s kamenom");
+                HUD.getInstancia().pridajSkore(1);
                 return true;
             }
         }
@@ -138,7 +137,6 @@ public class OvladanieNaboj {
                             c.getTelo().remove(hitIndex);
                         }
                     }
-                    System.out.println("naboj hit s centipede");
                     return true;
                 }
             }
@@ -156,9 +154,8 @@ public class OvladanieNaboj {
             if ((n.getX() + 11 >= p.getX() && n.getX() < p.getX() + 14) && (n.getY() + 30 > p.getY()) && (n.getY() < p.getY())) {
                 p.skry();
                 this.ovladaniePavuk.getVsetkyPavuci().remove(p);
-                HUD.getInstancia().pridajSkore(12);
+                HUD.getInstancia().pridajSkore(4);
                 this.ovladaniePavuk.novyPavuk();
-                System.out.println("naboj hit s pavukom");
                 return true;
             }
         }

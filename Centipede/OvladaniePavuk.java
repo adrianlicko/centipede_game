@@ -20,7 +20,7 @@ public class OvladaniePavuk {
         this.random = new Random();
         
         // Na začiatku hry sa náhodne zvolí koľko bude pavúkov
-        switch (random.nextInt(2)) {
+        switch (this.random.nextInt(2)) {
             case 0:
                 this.novyPavuk();
                 break;
@@ -36,12 +36,12 @@ public class OvladaniePavuk {
      * Metódu vyvoláva trieda OvladanieNaboj.
      */
     public void novyPavuk() {
-        int randomY = random.nextInt(500, 600); // Spawn pavúka na Y súradniciach od 500 do 600 v párnych číslach
+        int randomY = this.random.nextInt(500, 600); // Spawn pavúka na Y súradniciach od 500 do 600 v párnych číslach
         if (randomY % 2 != 0) {
             randomY++;
         }
 
-        switch (random.nextInt(2)) { // 50% náhodnosť na zvolenie smeru vpravo alebo vľavo, určuje ktorým smerom sa pavúk bude uberať celú hru
+        switch (this.random.nextInt(2)) { // 50% náhodnosť na zvolenie smeru vpravo alebo vľavo, určuje ktorým smerom sa pavúk bude uberať celú hru
             case 0:
                 this.pavuci.add(new Pavuk(this.typPavuka, -30, randomY));
                 this.pavuci.get(this.pavuci.size() - 1).posunVpravo();
@@ -61,9 +61,8 @@ public class OvladaniePavuk {
      */
     public void ovladajPavuka() {
         for (Pavuk pavuk : this.pavuci) {
-
             if (pavuk.getPocitadloVodorovne() == 0) {
-                if (random.nextInt(2) == 0) { // 50% šanca, že sa pavúk bude hýbať do ľavej alebo pravej strany, 50% že bude stáť na mieste v tomto smere
+                if (this.random.nextInt(2) == 0) { // 50% šanca, že sa pavúk bude hýbať do ľavej alebo pravej strany, 50% že bude stáť na mieste v tomto smere
                     pavuk.setPocitadloVodorovne(19);
                 } else {
                     pavuk.setPocitadloVodorovne(-19);
@@ -93,7 +92,7 @@ public class OvladaniePavuk {
             
 
             if (pavuk.getPocitadloZvisle() == 0) {
-                if (random.nextInt(4) == 0) { // 25% šanca, že sa pavúk bude hýbať hore alebo dole, 50% že bude stáť na mieste v tomto smere
+                if (this.random.nextInt(4) == 0) { // 25% šanca, že sa pavúk bude hýbať hore alebo dole, 50% že bude stáť na mieste v tomto smere
                     pavuk.setPocitadloZvisle(19);
                 } else {
                     pavuk.setPocitadloZvisle(-19);

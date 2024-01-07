@@ -36,46 +36,46 @@ class HUD {
         zivoty = new ArrayList<Obrazok>();
     }
     
-    public void setDefaultHodnoty() {
+    public static void setDefaultHodnoty() {
         skore = 0;
         pocetZivotov = 0;
     }
     
-    public int getSkore() {
+    public static int getSkore() {
         return skore;
     }
     
-    public void pridajSkore(int hodnota) {
+    public static void pridajSkore(int hodnota) {
         skore += hodnota;
         skoreText.zmenText("" + Integer.toString(skore));
     }
     
-    public void odoberSkore(int hodnota) {
+    public static void odoberSkore(int hodnota) {
         skore -= hodnota;
         skoreText.zmenText("" + Integer.toString(skore));
     }
     
-    public void zobrazSkore() {
+    public static void zobrazSkore() {
+        obdlznik.zobraz();
         skoreText.zobraz();
         skoreObrazok.zobraz();
-        obdlznik.zobraz();
     }
     
-    public int getPocetZivotov() {
+    public static int getPocetZivotov() {
         return pocetZivotov;
     }
     
-    public void pridajZivoty(int hodnota) {
+    public static void pridajZivoty(int hodnota) {
         pocetZivotov += hodnota;
         zobrazZivoty();
     }
     
-    public void uberZivoty() {
+    public static void uberZivoty() {
         pocetZivotov -= 1;
         zobrazZivoty();
     }
     
-    public void zobrazZivoty() {
+    public static void zobrazZivoty() {
         if (!zivoty.isEmpty()) {
             for (Obrazok o : zivoty) {
                 o.skry();
@@ -84,12 +84,12 @@ class HUD {
         }
         
         for (int i = 0; i < pocetZivotov; i++) {
-            zivoty.add(new Obrazok("pics\\heart.png", (i*30), 700));
+            zivoty.add(new Obrazok("pics\\heart.png", (i * 30), 700));
             zivoty.get(zivoty.size() - 1).zobraz();
         }
     }
     
-    public void skry() {
+    public static void skry() {
         skoreText.zmenText("0");
         skoreText.skry();
         skoreObrazok.skry();

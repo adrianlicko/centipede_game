@@ -39,15 +39,17 @@ public class Prekazky {
             int suradnicaY;
 
             for (;;) {
-                suradnicaX = random.nextInt(741) + 20; //sbge.ini Width -60 +20, zaistenie voľných "políčok" na ľavej a pravej strane mapy
-                if (suradnicaX % 20 == 0)
+                suradnicaX = this.random.nextInt(741) + 20; //sbge.ini Width -60 +20, zaistenie voľných "políčok" na ľavej a pravej strane mapy
+                if (suradnicaX % 20 == 0) {
                     break;
+                }
             }
 
             for (;;) {
-                suradnicaY = random.nextInt(581) + 20; //sbge.ini Height -120 +20, zabránenie generácií prekážok v prvom hornom riadku a dolnej časti mapy pre pohyb raketky
-                if (suradnicaY % 20 == 0)
+                suradnicaY = this.random.nextInt(581) + 20; //sbge.ini Height -120 +20, zabránenie generácií prekážok v prvom hornom riadku a dolnej časti mapy pre pohyb raketky
+                if (suradnicaY % 20 == 0) {
                     break;
+                }
             }
 
             boolean spravneHodnoty = true;

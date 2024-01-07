@@ -178,33 +178,33 @@ class UdajeZoSuboru {
             this.farba = novaFarba;
         }
 
-        public SkoreInfo() {
+        SkoreInfo() {
             this.skore = 0;
             this.farba = TypLode.MODRA.getFarbaLode(); // Default farba
             this.level = 1;
         }
 
-        public SkoreInfo(int skore, String farba, int level) {
+        SkoreInfo(int skore, String farba, int level) {
             this.skore = skore;
             this.farba = farba;
             this.level = level;
         }
 
         public int getSkore() {
-            return skore;
+            return this.skore;
         }
 
         public String getFarba() {
-            return farba;
+            return this.farba;
         }
         
         public int getLevel() {
-            return level;
+            return this.level;
         }
 
         @Override
         public String toString() {
-            return skore + ", " + farba + ", " + level;
+            return this.skore + ", " + this.farba + ", " + this.level;
         }
     }
     

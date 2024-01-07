@@ -1,5 +1,4 @@
 import fri.shapesge.Manazer;
-import java.util.ArrayList;
 
 /**
  * Vytvára celú hru. Spája všetky objekty dokopy.

@@ -3,11 +3,10 @@
  * 
  * @author Adrián Ličko
  */
-public enum TypLode
-{
+public enum TypLode {
     MODRA("pics\\DarkBlueSpaceShip_Store.png", "pics\\DarkBlueSpaceShip_player.png", "MODRA", 6, 3, "blue", 3, 0),
     CERVENA("pics\\DarkRedSpaceShip_Store.png", "pics\\DarkRedSpaceShip_player.png", "CERVENA", 4, 5, "red", 6, 150),
-    ZLTA("pics\\DarkYellowSpaceShip_Store.png","pics\\DarkYellowSpaceShip_player.png", "ZLTA", 8, 1, "darkYellow", 2, 500);
+    ZLTA("pics\\DarkYellowSpaceShip_Store.png", "pics\\DarkYellowSpaceShip_player.png", "ZLTA", 8, 1, "darkYellow", 2, 500);
     
     private final String obchodCestaKObrazku;
     private final String cestaKObrazku;

@@ -8,7 +8,8 @@ import fri.shapesge.Obdlznik;
 public class Naboj {
     private final Obdlznik naboj;
     private final VesmirnaLod lod;
-    private int x, y;
+    private int x;
+    private int y;
     private final TypLode typLode;
 
     /**

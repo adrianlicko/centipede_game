@@ -35,9 +35,11 @@ public class Obchod {
         this.skoreText.zmenFont("Aptos", StylFontu.BOLD, 60);
         this.skoreText.zmenFarbu("darkYellow");
         this.skoreText.zobraz();
+        
         // Obrázok pre logo skóre
         this.skoreObrazok = new Obrazok("pics\\Skore_Store.png", 20, 630);
         this.skoreObrazok.zobraz();
+        
         // Získanie aktuálnej lode, ktorú hráč vlastní zo súboru "udaje.txt", základnú loď ktorú hráč vlastní je modrá
         if (UdajeZoSuboru.getInstancia().getfarbaLode().equals(TypLode.MODRA)) {
             this.typLode = TypLode.MODRA;
@@ -58,17 +60,20 @@ public class Obchod {
         this.aktualnaLodText.zmenFont("Aptos", StylFontu.BOLD, 20);
         this.aktualnaLodText.zmenFarbu("black");
         this.aktualnaLodText.zobraz();
+        
         // Zobrazí obrázok aktuálnej vesmírnej lodi, ktorú hráč vlastní
         this.aktualnaLodObrazok = new Obrazok(this.typLode.getObchodCestaKObrazku(), 690, 610);
         this.aktualnaLodObrazok.zobraz();
+        
         // Zoznam obrázkov všetkých lodí
         this.lodeObrazky = new ArrayList<Obrazok>();
         
         for (int i = 0; i < TypLode.values().length; i++) {
             TypLode l = TypLode.values()[i];
 
-            this.lodeObrazky.add(new Obrazok(l.getObchodCestaKObrazku(), 120, (120*i)+200));
+            this.lodeObrazky.add(new Obrazok(l.getObchodCestaKObrazku(), 120, (120 * i) + 200));
         }
+        
         /*
          * Pole, ktoré je veľké podľa toho, koľko je obrázkov. Obrázkov je toľko koľko je enumov v TypLode
          * Toto pole obsahuje ArrayList prvky BlokTextu
@@ -78,10 +83,11 @@ public class Obchod {
         // Očíslovanie každej z lodi, na základe čísla, hráč stlačí klávesu ktorá vyvolá metódu na kúpu danej lodi
         this.ocislovanie = new ArrayList<BlokTextu>();
         for (int i = 0; i < this.lodeObrazky.size(); i++) {
-            this.ocislovanie.add(new BlokTextu("" + (i+1) + "."));
+            this.ocislovanie.add(new BlokTextu("" + (i + 1) + "."));
             this.ocislovanie.get(i).zmenFont("Showcard Gothic", StylFontu.BOLD, 60);
             this.ocislovanie.get(i).zmenFarbu("black");
         }
+        
         // Vlastnosti každej lode sa nahrajú do ArrayListov v poli, v ktorom sa daná vesmírna loď nachádza
         for (int i = 0; i < this.udajeVsekychLodi.length; i++) {
             TypLode l = TypLode.values()[i];
@@ -132,13 +138,13 @@ public class Obchod {
 
             this.skoreText.zmenText("" + UdajeZoSuboru.getInstancia().getSkore());
 
-            this.stavZakupenia = new BlokTextu("Zakúpil si novú vesmírnu loď", 150, 650);
+            this.stavZakupenia = new BlokTextu("Zakúpil si novú vesmírnu loď", 150, 600);
             this.stavZakupenia.zmenFarbu("green");
         } else {
-            this.stavZakupenia = new BlokTextu("Na danú loď nemáš dostatok skóre", 150, 650);
-            this.stavZakupenia.zmenFarbu("green");
+            this.stavZakupenia = new BlokTextu("Na danú loď nemáš dostatok skóre", 150, 600);
+            this.stavZakupenia.zmenFarbu("red");
         }
-        this.stavZakupenia.zmenFont("Aptos", StylFontu.BOLD, 20);
+        this.stavZakupenia.zmenFont("Aptos", StylFontu.BOLD, 30);
         this.stavZakupenia.zobraz();
     }
 
@@ -159,14 +165,14 @@ public class Obchod {
                 if (j == this.udajeVsekychLodi[i].size() - 1) {
                     b.zmenFont("Showcard Gothic", StylFontu.BOLD, 15);
                     b.zmenFarbu("darkYellow");
-                    b.zmenPolohu(surX, (120*i)+125+surY);
+                    b.zmenPolohu(surX, (120 * i) + 125 + surY);
                     b.zobraz();
                     continue;
                 }
 
                 b.zmenFont("Aptos", StylFontu.BOLD, 15);
                 b.zmenFarbu("black");
-                b.zmenPolohu(surX, (120*i)+125+surY);
+                b.zmenPolohu(surX, (120 * i) + 125 + surY);
                 b.zobraz();
                 surY += 20;
             }

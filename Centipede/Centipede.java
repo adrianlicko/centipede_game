@@ -1,4 +1,3 @@
-import fri.shapesge.Obrazok;
 import java.util.ArrayList;
 
 
@@ -44,17 +43,17 @@ public class Centipede {
      * Vždy za prvý prvok sa nahrá hlava, a potom telo.
      */
     public void vytvorCentipede() {
-        this.centipede.add(new CastiTela("pics\\centipedeHead.png" ,this.x, this.y));
+        this.centipede.add(new CastiTela("pics\\centipedeHead.png" , this.x, this.y));
         if (this.smer == Smery.VLAVO) {
             for (int i = 1; i < this.dlzkaTela; i++) {
-                this.centipede.add(new CastiTela("pics\\centipedeBody.png", this.x+(i*20), this.y));
+                this.centipede.add(new CastiTela("pics\\centipedeBody.png", this.x + (i * 20), this.y));
                 for (int j = 0; j < 10; j++) {
                     this.historiaPohybu.add(Smery.VLAVO);
                 }
             }
         } else {
             for (int i = 1; i < this.dlzkaTela; i++) {
-                this.centipede.add(new CastiTela("pics\\centipedeBody.png", this.x+(i*(-20)), this.y));
+                this.centipede.add(new CastiTela("pics\\centipedeBody.png", this.x + (i * (-20)), this.y));
                 for (int j = 0; j < 10; j++) {
                     this.historiaPohybu.add(Smery.VPRAVO);
                 }
@@ -95,24 +94,42 @@ public class Centipede {
         this.centipede.get(0).posunZvisle(Smery.HORE.getVektor());
         this.historiaPohybu.add(Smery.HORE);
         this.nasledujHlavu();
+        
+        this.orezHistoriuPohybu();
     }
 
     public void posunDole() {
         this.centipede.get(0).posunZvisle(Smery.DOLE.getVektor());
         this.historiaPohybu.add(Smery.DOLE);
         this.nasledujHlavu();
+        
+        this.orezHistoriuPohybu();
     }
 
     public void posunVpravo() {
         this.centipede.get(0).posunVodorovne(Smery.VPRAVO.getVektor());
         this.historiaPohybu.add(Smery.VPRAVO);
         this.nasledujHlavu();
+        
+        this.orezHistoriuPohybu();
     }
 
     public void posunVlavo() {
         this.centipede.get(0).posunVodorovne(Smery.VLAVO.getVektor());
         this.historiaPohybu.add(Smery.VLAVO);
         this.nasledujHlavu();
+        
+        this.orezHistoriuPohybu();
+    }
+
+    /**
+     * Metóda, ktorá zabezpečuje aby dĺžka histórie pohybu centipede nebola zbytočne dlhá
+     */
+    private void orezHistoriuPohybu() {
+        int maxVelkostHistorie = this.dlzkaTela * 10;
+        while (this.historiaPohybu.size() > maxVelkostHistorie) {
+            this.historiaPohybu.remove(0);
+        }
     }
 
     /**
@@ -120,7 +137,7 @@ public class Centipede {
      */
     public void nasledujHlavu() {
         for (int i = 1; i < this.centipede.size(); i++) {
-            Smery pohyb = this.historiaPohybu.get(this.historiaPohybu.size() - (i*10));
+            Smery pohyb = this.historiaPohybu.get(this.historiaPohybu.size() - (i * 10));
             if (pohyb == Smery.HORE || pohyb == Smery.DOLE) {
                 this.centipede.get(i).posunZvisle(pohyb.getVektor());
             } else {

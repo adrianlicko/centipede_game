@@ -117,7 +117,7 @@ public class Menu {
     /**
      * Vykresluje objekty v menu.
      */
-    public void vykresli() {
+    private void vykresli() {
         this.manazer = new Manazer();
         this.manazer.spravujObjekt(this);
         
@@ -130,7 +130,7 @@ public class Menu {
     /**
      * Skrýva objekty v menu.
      */
-    public void skry() {
+    private void skry() {
         this.obchodButton.skry();
         this.hraButton.skry();
         this.dalsiLevel.skry();
@@ -139,5 +139,4 @@ public class Menu {
             this.stav.skry();
         }
     }
-    
 }
